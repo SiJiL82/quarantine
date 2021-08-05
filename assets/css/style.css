@@ -11,13 +11,47 @@ body {
 }
 
 .navbar-brand {
-    margin: 30px;
+    margin-top: 8px;
 }
 
 .navbar-brand img {
     max-width: 190px;
 }
 
+.nav-item {
+    margin-left: 20px;
+    padding: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.hamburger-icon {
+    margin-right: 20px;
+}
+
+.hamburger-icon span {
+    padding: 20px;
+}
+
 .main-div {
     margin-top: 180px;
+}
+
+
+
+
+
+
+
+/* media queries */
+@media only screen and (max-width: 600px) {
+    .navbar-brand img {
+        max-width: 130px;
+    }
+    .navbar-brand {
+        margin: 10px;
+    }
+    .main-div {
+        margin-top: 150px;
+    }
 }
