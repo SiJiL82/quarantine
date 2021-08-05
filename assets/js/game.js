@@ -48,6 +48,8 @@ function create(){
     ball = this.physics.add.sprite(400, 575, 'ball');
     // Tells ball to collide with world boundaries
     ball.setCollideWorldBounds(true);
+    // Allows ball to create an event when a world boundary collision occurs
+    ball.body.onWorldBounds = true;
     // Lets ball bounce
     ball.setBounce(1, 1);
     // Sets initial velocity of ball
@@ -60,10 +62,21 @@ function create(){
 
     // Allows ball and paddle to collide
     this.physics.add.collider(ball, paddle);
+    // Listens for world boundary event, and triggers onWorldBounds
+    this.physics.world.on('worldbounds', onWorldBounds);
 }
 
 function update(){
     // Moves the paddle along the x axis based on player input (mouse or touch)
     // Defaults to 400 (half of width declared in config) to center the paddle on load
     paddle.x = this.input.x || 400;
+}
+
+// Fires whenever a world boundary event is captured by the listener above
+// Checks if player has lost, i.e. if the ball's position on y axis is below the paddle's
+function onWorldBounds() {
+    if (ball.y > (paddle.y)) {
+        alert('Game Over!');
+        location.reload();
+    }
 }
