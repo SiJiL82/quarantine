@@ -43,6 +43,12 @@ function preload(){
 function create(){
     // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader 
     ball = this.physics.add.sprite(400, 575, 'ball');
+    // Tells ball to collide with world boundaries
+    ball.setCollideWorldBounds(true);
+    // Lets ball bounce
+    ball.setBounce(1, 1);
+    // Sets initial velocity of ball
+    ball.setVelocity(200, -200);
 
     // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
     paddle = this.physics.add.sprite(400, 595, 'paddle');
