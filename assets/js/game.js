@@ -33,14 +33,19 @@ var game = new Phaser.Game(config);
 
 // Declare game variables
 var ball;
+var paddle;
 
 function preload(){
     this.load.image('ball', 'assets/img/ball.png');
+    this.load.image('paddle', 'assets/img/paddle.png');
 }
 
 function create(){
     // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader 
     ball = this.physics.add.sprite(400, 575, 'ball');
+
+    // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
+    paddle = this.physics.add.sprite(400, 595, 'paddle');
 }
 
 function update(){
