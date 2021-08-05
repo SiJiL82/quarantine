@@ -41,6 +41,9 @@ function preload(){
 }
 
 function create(){
+    // Set 3 of 4 boundaries to detect collisions
+    this.physics.world.setBoundsCollision(true, true, true, false);
+
     // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader 
     ball = this.physics.add.sprite(400, 575, 'ball');
     // Tells ball to collide with world boundaries
@@ -50,7 +53,7 @@ function create(){
     // Sets initial velocity of ball
     ball.setVelocity(200, -200);
 
-    // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
+    // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
     paddle = this.physics.add.sprite(400, 595, 'paddle');
     // Prevents paddle from being pushed away when collision with ball occurs
     paddle.setImmovable(true)
