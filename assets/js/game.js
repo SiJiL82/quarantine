@@ -52,8 +52,15 @@ function create(){
 
     // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
     paddle = this.physics.add.sprite(400, 595, 'paddle');
+    // Prevents paddle from being pushed away when collision with ball occurs
+    paddle.setImmovable(true)
+
+    // Allows ball and paddle to collide
+    this.physics.add.collider(ball, paddle);
 }
 
 function update(){
-
+    // Moves the paddle along the x axis based on player input (mouse or touch)
+    // Defaults to 400 (half of width declared in config) to center the paddle on load
+    paddle.x = this.input.x || 400;
 }
