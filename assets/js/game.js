@@ -38,6 +38,8 @@ var bricks;
 var numBricks = 0;
 var ballFired = false;
 var ballLaunchSpeed = 400;
+var score = 0;
+var scoreText;
 
 function preload(){
     this.load.image('ball', 'assets/img/ball.png');
@@ -74,6 +76,9 @@ function create(){
     bricks = createBricks();
     //Add brick and ball collision
     this.physics.add.collider(ball, bricks, ballBrickCollsion);
+
+    // Display the score
+    scoreText = this.add.text(8, 4, 'Score: 0', { fontSize: '32px', fill: '#fafafa' });
 }
 
 function update(){
@@ -151,6 +156,10 @@ function createBricks() {
 function ballBrickCollsion(ball, brick) {
     brick.disableBody(true, true);
     numBricks--;
+
+    // Increment score variable by 10, and write to screen
+    score += 10;
+    scoreText.setText('Score: ' + score);
 }
 
 //Set the velocity of the ball to fire up from the paddle
