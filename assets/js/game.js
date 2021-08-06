@@ -42,6 +42,7 @@ var score = 0;
 var scoreText;
 
 function preload(){
+    onFirstLoad()
     this.load.image('ball', 'assets/img/ball.png');
     this.load.image('paddle', 'assets/img/paddle.png');
     this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
@@ -206,6 +207,12 @@ function checkHiScore() {
     }
 }
 
+// Checks if localStorage is empty, and seeds with a hi-score of 0 on first visit
+function onFirstLoad() {
+    if (localStorage.length < 1) {
+        localStorage.setItem('hiscore', '0');
+    }
+}
 //Check if all bricks have been destroyed
 function checkRemainingBricks() {
     if(numBricks == 0) {
