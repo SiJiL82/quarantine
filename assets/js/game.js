@@ -34,6 +34,7 @@ var game = new Phaser.Game(config);
 // Declare game variables
 var ball;
 var paddle;
+var bricks;
 
 function preload(){
     this.load.image('ball', 'assets/img/ball.png');
@@ -54,7 +55,7 @@ function create(){
     // Lets ball bounce
     ball.setBounce(1, 1);
     // Sets initial velocity of ball
-    ball.setVelocity(200, -200);
+    //ball.setVelocity(200, -200);
 
     // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
     paddle = this.physics.add.sprite(400, 595, 'paddle');
@@ -65,6 +66,9 @@ function create(){
     this.physics.add.collider(ball, paddle);
     // Listens for world boundary event, and triggers onWorldBounds
     this.physics.world.on('worldbounds', onWorldBounds);
+
+    // Create bricks
+    bricks = createBricks();
 }
 
 function update(){
@@ -82,17 +86,35 @@ function onWorldBounds() {
     }
 }
 
+//Brick config
+const brickConfig = {
+    width: 64,
+    height: 64
+}
+
 //Brick layout config
 const brickLayout = {
-    width: 32,
-    height: 32,
     count: {
-        row: 1,
-        col: 1
+        row: 2,
+        col: 11
     },
     offset: {
-        top: 32,
-        left: 32
+        top: 64,
+        left: 64
     },
     padding: 0
 };
+
+//Create bricks on screen from config
+function createBricks() {
+    const bricks = game.scene.scenes[0].physics.add.staticGroup();
+    for (let column = 0; column < brickLayout.count.col; column++) {
+        for (let row = 0; row < brickLayout.count.row; row++) {
+            let brickX = (column * (brickConfig.width + brickLayout.padding)) + brickLayout.offset.left;
+            let brickY = (row * (brickConfig.height + brickLayout.padding)) + brickLayout.offset.top;
+            bricks.create(brickX, brickY, 'brick-first-aid');
+        }
+    }
+
+    return bricks;
+}
