@@ -1,83 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--Bootstrap's css files-->
-        <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.css">
-        <link rel="stylesheet" href="assets/bootstrap/bootstrap-reboot.css">
-        <link rel="stylesheet" href="assets/bootstrap/bootstrap-utilities.css">
-        <!--Bootswatch css file-->
-        <link rel="stylesheet" href="assets/bootstrap/bootstrap.css">
-        <!--our stylesheet-->
-        <link rel="stylesheet" href="assets/css/style.css">
-        <title>Document</title>
-    </head>
-    <body>
-        <header class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-dark fixed-top px-lg-5">
-                <!-- logo -->
-                <a class="navbar-brand" href="index.html"><img src="assets/img/logo.jpg" alt="Quarantine"></a>
-                <button class="navbar-toggler hamburger-icon" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon btn btn-outline-light"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light" href="#">How to play</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light" href="#">More info</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <div class="container main-div">
-            <h4 class="pixel-font">testing heading</h4>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit quod, quae numquam, ipsum deserunt voluptate
-                sint pariatur minima perspiciatis ducimus cumque, rerum rem sapiente itaque voluptatibus. Alias voluptate
-                vitae debitis!</p>
-        </div>
-        <div id="game-area"></div>
-        <footer class="footer mt-auto py-3">
-            <div class="container">
-                <span class="contributor-header">Contributors</span>
-                <ul class="contributor-socials">
-                    <li>
-                        <a href="https://github.com/SiJiL82" target="_blank">Sven</a>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootstrap's css files-->
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.css">
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap-reboot.css">
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap-utilities.css">
+    <!--Bootswatch css file-->
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap.css">
+    <!--our stylesheet-->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top px-lg-5">
+            <!-- logo -->
+            <a class="navbar-brand" href="index.html"><img src="assets/img/logo.jpg" alt="Quarantine"></a>
+            <button class="navbar-toggler hamburger-icon" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon btn btn-outline-light"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light" href="#">Home</a>
                     </li>
-                    <li>
-                        <a href="https://github.com/JoGorska" target="_blank">Joanna</a>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light" href="#">How to play</a>
                     </li>
-                    <li>
-                        <a href="https://github.com/Jack112-create" target="_blank">Jack</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/kevinoc554" target="_blank">Kevin</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/DarraghReid" target="_blank">Darragh</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/fernandagil/" target="_blank">Fernanda</a>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light" href="#">More info</a>
                     </li>
                 </ul>
             </div>
-        </footer>
-        <!--Bootstrap JavaScript-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
-        <!-- Phaser 3 CDN -->
-        <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
-        <!-- Game logic js file -->
-        <script src="assets/js/game.js"></script>
-    </body>
+        </nav>
+    </header>
+    <div class="container main-div">
+        <h4 class="pixel-font">testing heading</h4>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit quod, quae numquam, ipsum deserunt voluptate
+            sint pariatur minima perspiciatis ducimus cumque, rerum rem sapiente itaque voluptatibus. Alias voluptate
+            vitae debitis!</p>
+    </div>
+    <div id="game-area"></div>
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <span class="contributor-header">Contributors <i class="fab fa-github"></i></span>
+            <ul class="contributor-socials">
+                <li>
+                    <a href="https://github.com/SiJiL82" target="_blank">Sven</a>
+                </li>
+                <li>
+                    <a href="https://github.com/JoGorska" target="_blank">Joanna</a>
+                </li>
+                <li>
+                    <a href="https://github.com/Jack112-create" target="_blank">Jack</a>
+                </li>
+                <li>
+                    <a href="https://github.com/kevinoc554" target="_blank">Kevin</a>
+                </li>
+                <li>
+                    <a href="https://github.com/DarraghReid" target="_blank">Darragh</a>
+                </li>
+                <li>
+                    <a href="https://github.com/fernandagil/" target="_blank">Fernanda</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <!--Bootstrap JavaScript-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <!-- Font-Awesome Link -->
+    <script src="https://kit.fontawesome.com/bad93f1642.js" crossorigin="anonymous"></script>
+    <!-- Phaser 3 CDN -->
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <!-- Game logic js file -->
+    <script src="assets/js/game.js"></script>
+</body>
+
 </html>
