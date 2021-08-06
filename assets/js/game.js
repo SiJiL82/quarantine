@@ -38,8 +38,14 @@ var bricks;
 var numBricks = 0;
 var ballFired = false;
 var ballLaunchSpeed = 400;
+var score = 0;
+var scoreText;
+var hiScore;
+var hiScoreText;
 
 function preload(){
+    onFirstLoad();
+    hiScore = localStorage.getItem('hiscore');
     this.load.image('ball', 'assets/img/ball.png');
     this.load.image('paddle', 'assets/img/paddle.png');
     this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
@@ -74,6 +80,10 @@ function create(){
     bricks = createBricks();
     //Add brick and ball collision
     this.physics.add.collider(ball, bricks, ballBrickCollsion);
+
+    // Display the scores
+    scoreText = this.add.text(8, 4, 'SCORE: 0', { fontFamily: '"Press Start 2P"', fontSize: '24px', fill: '#fafafa' });
+    hiScoreText = this.add.text(515, 4, 'HISCORE: ' + hiScore, { fontFamily: '"Press Start 2P"', fontSize: '24px', fill: '#fafafa' });
 }
 
 function update(){
@@ -93,6 +103,7 @@ function update(){
 function onWorldBounds() {
     //Fell out the bottom of the world
     if (ball.y > (paddle.y)) {
+        checkHiScore();
         alert('Game Over!');
         location.reload();
     }
@@ -151,6 +162,10 @@ function createBricks() {
 function ballBrickCollsion(ball, brick) {
     brick.disableBody(true, true);
     numBricks--;
+
+    // Increment score variable by 10, and write to screen
+    score += 10;
+    scoreText.setText('Score: ' + score);
 }
 
 //Set the velocity of the ball to fire up from the paddle
@@ -183,9 +198,29 @@ function ballPaddleCollision(ball, paddle) {
     ball.setVelocity(ballXVelocity, ballYVelocity);
 }
 
+// Check if users final score is higher than the hi-score in localStorage
+// if so, overwrite localStorage
+function checkHiScore() {
+    let finalScore = score;
+    let hiScoreStorage = localStorage.getItem('hiscore');
+    // Convert localStorage from string to int
+    let hiScoreInt = parseInt(hiScoreStorage);
+    if (finalScore > hiScoreInt) {
+        // Convert final score to string and add to localStorage
+        localStorage.setItem('hiscore', finalScore.toString());
+    }
+}
+
+// Checks if localStorage is empty, and seeds with a hi-score of 0 on first visit
+function onFirstLoad() {
+    if (localStorage.length < 1) {
+        localStorage.setItem('hiscore', '0');
+    }
+}
 //Check if all bricks have been destroyed
 function checkRemainingBricks() {
     if(numBricks == 0) {
+        checkHiScore()
         alert("You win!");
         location.reload();
     }
