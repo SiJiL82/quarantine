@@ -81,3 +81,18 @@ function onWorldBounds() {
         location.reload();
     }
 }
+
+//Brick layout config
+const brickLayout = {
+    width: 32,
+    height: 32,
+    count: {
+        row: 1,
+        col: 1
+    },
+    offset: {
+        top: 32,
+        left: 32
+    },
+    padding: 0
+};
