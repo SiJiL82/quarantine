@@ -55,8 +55,8 @@ function create(){
     ball.body.onWorldBounds = true;
     // Lets ball bounce
     ball.setBounce(1, 1);
-    // Sets initial velocity of ball
-    //ball.setVelocity(200, -200);
+    // Launch the ball on mouse click
+    this.input.on('pointerdown', releaseBall);
 
     // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
     paddle = this.physics.add.sprite(400, 595, 'paddle');
@@ -78,6 +78,7 @@ function update(){
     // Moves the paddle along the x axis based on player input (mouse or touch)
     // Defaults to 400 (half of width declared in config) to center the paddle on load
     paddle.x = this.input.x || 400;
+
 }
 
 // Fires whenever a world boundary event is captured by the listener above
@@ -128,4 +129,10 @@ function createBricks() {
 function brickDestroyed(ball, brick) {
     brick.disableBody(true, true);
     numBricks--;
+    console.log(numBricks);
+}
+
+//Set the velocity of the ball to fire up from the paddle
+function releaseBall() {
+    ball.setVelocity(200, -200);
 }
