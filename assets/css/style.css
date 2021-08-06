@@ -64,6 +64,7 @@ body {
 footer {
     background: linear-gradient(var(--bs-purple), var(--bs-gray-dark));
     position: sticky;
+    top: 0;
 }
 
 footer .container {
