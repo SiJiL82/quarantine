@@ -62,7 +62,8 @@ body {
 }
 
 footer {
-    background: var(--bs-purple);
+    background: linear-gradient(var(--bs-purple), var(--bs-gray-dark));
+    position: sticky;
 }
 
 footer .container {
