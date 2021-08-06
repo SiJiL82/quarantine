@@ -138,7 +138,16 @@ function brickDestroyed(ball, brick) {
 
 //Set the velocity of the ball to fire up from the paddle
 function releaseBall() {
-    ball.setVelocity(200, -200);
+    ball.setVelocity(getRandomBetweenRange(-200, 200), -200);
     //Set ball as fired so it stops sticking to the paddle
     ballFired = true;
+}
+
+//Generate a random number between the passed in values
+function getRandomBetweenRange(min, max) {
+    if(max < min) {
+        console.log("Incorrect values passed to getRandomBetweenRange. Max should be > min");
+        return 0;
+    }
+    return Math.random() * (max - min) + min;
 }
