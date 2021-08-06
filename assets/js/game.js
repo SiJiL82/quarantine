@@ -35,6 +35,7 @@ var game = new Phaser.Game(config);
 var ball;
 var paddle;
 var bricks;
+var numBricks = 0;
 
 function preload(){
     this.load.image('ball', 'assets/img/ball.png');
@@ -55,7 +56,7 @@ function create(){
     // Lets ball bounce
     ball.setBounce(1, 1);
     // Sets initial velocity of ball
-    ball.setVelocity(200, -200);
+    //ball.setVelocity(200, -200);
 
     // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
     paddle = this.physics.add.sprite(400, 595, 'paddle');
@@ -116,6 +117,7 @@ function createBricks() {
             let brickX = (column * (brickConfig.width + brickLayout.padding)) + brickLayout.offset.left;
             let brickY = (row * (brickConfig.height + brickLayout.padding)) + brickLayout.offset.top;
             bricks.create(brickX, brickY, 'brick-first-aid');
+            numBricks++;
         }
     }
 
@@ -125,4 +127,5 @@ function createBricks() {
 //Define what happens when a ball gets hit
 function brickDestroyed(ball, brick) {
     brick.disableBody(true, true);
+    numBricks--;
 }
