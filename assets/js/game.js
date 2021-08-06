@@ -36,6 +36,7 @@ var ball;
 var paddle;
 var bricks;
 var numBricks = 0;
+var ballFired = false;
 
 function preload(){
     this.load.image('ball', 'assets/img/ball.png');
@@ -78,7 +79,10 @@ function update(){
     // Moves the paddle along the x axis based on player input (mouse or touch)
     // Defaults to 400 (half of width declared in config) to center the paddle on load
     paddle.x = this.input.x || 400;
-
+    //Stick the ball to the paddle when it's not fired
+    if(!ballFired) {
+        ball.x = paddle.x;
+    }
 }
 
 // Fires whenever a world boundary event is captured by the listener above
@@ -135,4 +139,6 @@ function brickDestroyed(ball, brick) {
 //Set the velocity of the ball to fire up from the paddle
 function releaseBall() {
     ball.setVelocity(200, -200);
+    //Set ball as fired so it stops sticking to the paddle
+    ballFired = true;
 }
