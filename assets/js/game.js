@@ -98,6 +98,7 @@ function update(){
 function onWorldBounds() {
     //Fell out the bottom of the world
     if (ball.y > (paddle.y)) {
+        checkHiScore();
         alert('Game Over!');
         location.reload();
     }
@@ -192,9 +193,23 @@ function ballPaddleCollision(ball, paddle) {
     ball.setVelocity(ballXVelocity, ballYVelocity);
 }
 
+// Check if users final score is higher than the hi-score in localStorage
+// if so, overwrite localStorage
+function checkHiScore() {
+    let finalScore = score;
+    let hiScore = localStorage.getItem('hiscore');
+    // Convert localStorage from string to int
+    let hiScoreInt = parseInt(hiScore);
+    if (finalScore > hiScoreInt) {
+        // Convert final score to string and add to localStorage
+        localStorage.setItem('hiscore', finalScore.toString());
+    }
+}
+
 //Check if all bricks have been destroyed
 function checkRemainingBricks() {
     if(numBricks == 0) {
+        checkHiScore()
         alert("You win!");
         location.reload();
     }
