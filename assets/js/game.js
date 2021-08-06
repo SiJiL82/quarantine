@@ -73,7 +73,7 @@ function create(){
     // Create bricks
     bricks = createBricks();
     //Add brick and ball collision
-    this.physics.add.collider(ball, bricks, brickDestroyed);
+    this.physics.add.collider(ball, bricks, ballBrickCollsion);
 }
 
 function update(){
@@ -130,8 +130,8 @@ function createBricks() {
     return bricks;
 }
 
-//Define what happens when a ball gets hit
-function brickDestroyed(ball, brick) {
+//Define what happens when a brick gets hit
+function ballBrickCollsion(ball, brick) {
     brick.disableBody(true, true);
     numBricks--;
     console.log(numBricks);
