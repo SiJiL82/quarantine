@@ -78,7 +78,7 @@ function create(){
     this.physics.add.collider(ball, bricks, ballBrickCollsion);
 
     // Display the score
-    scoreText = this.add.text(8, 4, 'Score: 0', { fontSize: '32px', fill: '#fafafa' });
+    scoreText = this.add.text(8, 4, 'Score: 0', { fontFamily: '"Press Start 2P"', fontSize: '24px', fill: '#fafafa' });
 }
 
 function update(){
