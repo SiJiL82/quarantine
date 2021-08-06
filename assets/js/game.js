@@ -37,6 +37,7 @@ var paddle;
 var bricks;
 var numBricks = 0;
 var ballFired = false;
+var ballLaunchSpeed = 400;
 
 function preload(){
     this.load.image('ball', 'assets/img/ball.png');
@@ -138,7 +139,7 @@ function brickDestroyed(ball, brick) {
 
 //Set the velocity of the ball to fire up from the paddle
 function releaseBall() {
-    ball.setVelocity(getRandomBetweenRange(-200, 200), -200);
+    ball.setVelocity(getRandomBetweenRange(-200, 200), -ballLaunchSpeed);
     //Set ball as fired so it stops sticking to the paddle
     ballFired = true;
 }
