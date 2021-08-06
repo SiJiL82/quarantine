@@ -55,7 +55,7 @@ function create(){
     // Lets ball bounce
     ball.setBounce(1, 1);
     // Sets initial velocity of ball
-    //ball.setVelocity(200, -200);
+    ball.setVelocity(200, -200);
 
     // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
     paddle = this.physics.add.sprite(400, 595, 'paddle');
@@ -69,6 +69,8 @@ function create(){
 
     // Create bricks
     bricks = createBricks();
+    //Add brick and ball collision
+    this.physics.add.collider(ball, bricks, brickDestroyed);
 }
 
 function update(){
@@ -108,6 +110,7 @@ const brickLayout = {
 //Create bricks on screen from config
 function createBricks() {
     const bricks = game.scene.scenes[0].physics.add.staticGroup();
+    //Loop through the number of columns and rows in the layout definition
     for (let column = 0; column < brickLayout.count.col; column++) {
         for (let row = 0; row < brickLayout.count.row; row++) {
             let brickX = (column * (brickConfig.width + brickLayout.padding)) + brickLayout.offset.left;
@@ -117,4 +120,9 @@ function createBricks() {
     }
 
     return bricks;
+}
+
+//Define what happens when a ball gets hit
+function brickDestroyed(ball, brick) {
+    brick.disableBody(true, true);
 }
