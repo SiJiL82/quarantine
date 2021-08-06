@@ -84,6 +84,8 @@ function update(){
     if(!ballFired) {
         ball.x = paddle.x;
     }
+    //Check if player has won the round
+    checkRemainingBricks();
 }
 
 // Fires whenever a world boundary event is captured by the listener above
@@ -91,7 +93,7 @@ function update(){
 function onWorldBounds() {
     //Fell out the bottom of the world
     if (ball.y > (paddle.y)) {
-        //alert('Game Over!');
+        alert('Game Over!');
         location.reload();
     }
     //Collided with a wall - add velocity on collision to stop the ball getting stuck in a continuous horizontal bounce
@@ -120,11 +122,11 @@ const brickConfig = {
 const brickLayout = {
     count: {
         row: 2,
-        col: 11
+        col: 12
     },
     offset: {
         top: 64,
-        left: 64
+        left: 48
     },
     padding: 0
 };
@@ -149,7 +151,6 @@ function createBricks() {
 function ballBrickCollsion(ball, brick) {
     brick.disableBody(true, true);
     numBricks--;
-    console.log(numBricks);
 }
 
 //Set the velocity of the ball to fire up from the paddle
@@ -178,4 +179,12 @@ function ballPaddleCollision(ball, paddle) {
     let ballXVelocity = ball.body.velocity.x += offset;
     let ballYVelocity = ball.body.velocity.y;
     ball.setVelocity(ballXVelocity, ballYVelocity);
+}
+
+//Check if all bricks have been destroyed
+function checkRemainingBricks() {
+    if(numBricks == 0) {
+        alert("You win!");
+        location.reload();
+    }
 }
