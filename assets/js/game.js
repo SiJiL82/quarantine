@@ -38,6 +38,7 @@ var paddle;
 function preload(){
     this.load.image('ball', 'assets/img/ball.png');
     this.load.image('paddle', 'assets/img/paddle.png');
+    this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
 }
 
 function create(){
@@ -76,7 +77,7 @@ function update(){
 // Checks if player has lost, i.e. if the ball's position on y axis is below the paddle's
 function onWorldBounds() {
     if (ball.y > (paddle.y)) {
-        alert('Game Over!');
+        //alert('Game Over!');
         location.reload();
     }
 }
