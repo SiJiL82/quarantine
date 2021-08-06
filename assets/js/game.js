@@ -66,7 +66,7 @@ function create(){
     paddle.setImmovable(true)
 
     // Allows ball and paddle to collide
-    this.physics.add.collider(ball, paddle);
+    this.physics.add.collider(ball, paddle, ballPaddleCollision);
     // Listens for world boundary event, and triggers onWorldBounds
     this.physics.world.on('worldbounds', onWorldBounds);
 
@@ -151,4 +151,16 @@ function getRandomBetweenRange(min, max) {
         return 0;
     }
     return Math.random() * (max - min) + min;
+}
+
+//Define what happens when the ball collides with the paddle
+function ballPaddleCollision(ball, paddle) {
+    //Get the offset between the paddle and ball
+    let offset = ball.x - paddle.x;
+    //Set a new velocity for the ball, adding velocity on X so it bounces in the direction relative to where it hit the paddle.
+    //Hitting the paddle to the left of the center applies a -X offset for example.
+    //Stops the ball getting stuck bouncing straight up and down endlessly
+    let ballXVelocity = ball.body.velocity.x += offset;
+    let ballYVelocity = ball.body.velocity.y;
+    ball.setVelocity(ballXVelocity, ballYVelocity);
 }
