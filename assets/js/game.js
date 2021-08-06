@@ -40,9 +40,12 @@ var ballFired = false;
 var ballLaunchSpeed = 400;
 var score = 0;
 var scoreText;
+var hiScore;
+var hiScoreText;
 
 function preload(){
-    onFirstLoad()
+    onFirstLoad();
+    hiScore = localStorage.getItem('hiscore');
     this.load.image('ball', 'assets/img/ball.png');
     this.load.image('paddle', 'assets/img/paddle.png');
     this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
@@ -78,8 +81,9 @@ function create(){
     //Add brick and ball collision
     this.physics.add.collider(ball, bricks, ballBrickCollsion);
 
-    // Display the score
-    scoreText = this.add.text(8, 4, 'Score: 0', { fontFamily: '"Press Start 2P"', fontSize: '24px', fill: '#fafafa' });
+    // Display the scores
+    scoreText = this.add.text(8, 4, 'SCORE: 0', { fontFamily: '"Press Start 2P"', fontSize: '24px', fill: '#fafafa' });
+    hiScoreText = this.add.text(515, 4, 'HISCORE: ' + hiScore, { fontFamily: '"Press Start 2P"', fontSize: '24px', fill: '#fafafa' });
 }
 
 function update(){
@@ -198,9 +202,9 @@ function ballPaddleCollision(ball, paddle) {
 // if so, overwrite localStorage
 function checkHiScore() {
     let finalScore = score;
-    let hiScore = localStorage.getItem('hiscore');
+    let hiScoreStorage = localStorage.getItem('hiscore');
     // Convert localStorage from string to int
-    let hiScoreInt = parseInt(hiScore);
+    let hiScoreInt = parseInt(hiScoreStorage);
     if (finalScore > hiScoreInt) {
         // Convert final score to string and add to localStorage
         localStorage.setItem('hiscore', finalScore.toString());
