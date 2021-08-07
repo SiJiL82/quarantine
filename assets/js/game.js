@@ -42,10 +42,14 @@ var score = 0;
 var scoreText;
 var hiScore;
 var hiScoreText;
+var bgMusic;
+var baseHit;
+var pop;
 
 function preload() {
     this.load.audio('bg-music', 'assets/audio/bgm.ogg');
     this.load.audio('hit', 'assets/audio/hit.wav');
+    this.load.audio('pop', 'assets/audio/pop.ogg');
     onFirstLoad();
     hiScore = localStorage.getItem('hiscore');
     this.load.image('ball', 'assets/img/ball.png');
@@ -55,7 +59,7 @@ function preload() {
 
 function create() {
     // Creat sound object for Background Music, and play.
-    const bgMusic = this.sound.add('bg-music', {
+    bgMusic = this.sound.add('bg-music', {
         volume: 0.25
     });
     bgMusic.play();
@@ -69,7 +73,12 @@ function create() {
     })
 
     //  Create sound object for basic collision sound
-    const baseHit = this.sound.add('hit', {
+    baseHit = this.sound.add('hit', {
+        volume: 0.25
+    });
+
+    //  Create sound object for basic collision sound
+    pop = this.sound.add('pop', {
         volume: 0.25
     });
 
@@ -93,18 +102,8 @@ function create() {
     paddle.setImmovable(true)
 
     // Allows ball and paddle to collide
-    this.physics.add.collider(ball, paddle, function () {
-        baseHit.play();
-        //Get the offset between the paddle and ball
-        let offset = ball.x - paddle.x;
-        //Set a new velocity for the ball, adding velocity on X so it bounces in the direction relative to where it hit the paddle.
-        //Hitting the paddle to the left of the center applies a -X offset for example.
-        //Stops the ball getting stuck bouncing straight up and down endlessly
-        let ballXVelocity = ball.body.velocity.x += offset;
-        let ballYVelocity = ball.body.velocity.y;
-        ball.setVelocity(ballXVelocity, ballYVelocity);
-    });
-    
+    this.physics.add.collider(ball, paddle, ballPaddleCollision);
+
     // Listens for world boundary event, and triggers onWorldBounds
     this.physics.world.on('worldbounds', onWorldBounds);
 
@@ -200,6 +199,7 @@ function createBricks() {
 
 //Define what happens when a brick gets hit
 function ballBrickCollsion(ball, brick) {
+    pop.play();
     brick.disableBody(true, true);
     numBricks--;
 
@@ -228,6 +228,7 @@ function getRandomBetweenRange(min, max) {
 
 //Define what happens when the ball collides with the paddle
 function ballPaddleCollision(ball, paddle) {
+    baseHit.play();
     //Get the offset between the paddle and ball
     let offset = ball.x - paddle.x;
     //Set a new velocity for the ball, adding velocity on X so it bounces in the direction relative to where it hit the paddle.
