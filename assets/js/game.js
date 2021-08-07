@@ -42,8 +42,14 @@ var score = 0;
 var scoreText;
 var hiScore;
 var hiScoreText;
+var bgMusic;
+var baseHit;
+var pop;
 
-function preload(){
+function preload() {
+    this.load.audio('bg-music', 'assets/audio/bgm.ogg');
+    this.load.audio('hit', 'assets/audio/hit.wav');
+    this.load.audio('pop', 'assets/audio/pop.ogg');
     onFirstLoad();
     hiScore = localStorage.getItem('hiscore');
     this.load.image('ball', 'assets/img/ball.png');
@@ -51,7 +57,31 @@ function preload(){
     this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
 }
 
-function create(){
+function create() {
+    // Creat sound object for Background Music, and play.
+    bgMusic = this.sound.add('bg-music', {
+        volume: 0.25
+    });
+    bgMusic.play();
+    bgMusic.setLoop(true);
+    this.input.keyboard.on('keydown-SPACE', function () {
+        if (bgMusic.isPlaying) {
+            bgMusic.pause();
+        } else {
+            bgMusic.resume();
+        }
+    })
+
+    //  Create sound object for basic collision sound
+    baseHit = this.sound.add('hit', {
+        volume: 0.25
+    });
+
+    //  Create sound object for basic collision sound
+    pop = this.sound.add('pop', {
+        volume: 0.25
+    });
+
     // Set 3 of 4 boundaries to detect collisions
     this.physics.world.setBoundsCollision(true, true, true, false);
 
@@ -73,6 +103,7 @@ function create(){
 
     // Allows ball and paddle to collide
     this.physics.add.collider(ball, paddle, ballPaddleCollision);
+
     // Listens for world boundary event, and triggers onWorldBounds
     this.physics.world.on('worldbounds', onWorldBounds);
 
@@ -82,16 +113,24 @@ function create(){
     this.physics.add.collider(ball, bricks, ballBrickCollsion);
 
     // Display the scores
-    scoreText = this.add.text(8, 4, 'SCORE: 0', { fontFamily: '"Press Start 2P"', fontSize: '24px', fill: '#fafafa' });
-    hiScoreText = this.add.text(515, 4, 'HISCORE: ' + hiScore, { fontFamily: '"Press Start 2P"', fontSize: '24px', fill: '#fafafa' });
+    scoreText = this.add.text(8, 4, 'SCORE: 0', {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '24px',
+        fill: '#fafafa'
+    });
+    hiScoreText = this.add.text(515, 4, 'HISCORE: ' + hiScore, {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '24px',
+        fill: '#fafafa'
+    });
 }
 
-function update(){
+function update() {
     // Moves the paddle along the x axis based on player input (mouse or touch)
     // Defaults to 400 (half of width declared in config) to center the paddle on load
     paddle.x = this.input.x || 400;
     //Stick the ball to the paddle when it's not fired
-    if(!ballFired) {
+    if (!ballFired) {
         ball.x = paddle.x;
     }
     //Check if player has won the round
@@ -112,7 +151,7 @@ function onWorldBounds() {
         let ballXVelocity = ball.body.velocity.x;
         let ballYVelocity = ball.body.velocity.y;
         //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
-        if(ball.body.velocity.y >= 0) {
+        if (ball.body.velocity.y >= 0) {
             ballYVelocity += 0.1;
         }
         //If ball is moving upwards when it hits the wall, add a little bit more upwards velocity
@@ -160,6 +199,7 @@ function createBricks() {
 
 //Define what happens when a brick gets hit
 function ballBrickCollsion(ball, brick) {
+    pop.play();
     brick.disableBody(true, true);
     numBricks--;
 
@@ -170,7 +210,7 @@ function ballBrickCollsion(ball, brick) {
 
 //Set the velocity of the ball to fire up from the paddle
 function releaseBall() {
-    if(!ballFired) {
+    if (!ballFired) {
         ball.setVelocity(getRandomBetweenRange(-200, 200), -ballLaunchSpeed);
         //Set ball as fired so it stops sticking to the paddle
         ballFired = true;
@@ -179,7 +219,7 @@ function releaseBall() {
 
 //Generate a random number between the passed in values
 function getRandomBetweenRange(min, max) {
-    if(max < min) {
+    if (max < min) {
         console.log("Incorrect values passed to getRandomBetweenRange. Max should be > min");
         return 0;
     }
@@ -188,6 +228,7 @@ function getRandomBetweenRange(min, max) {
 
 //Define what happens when the ball collides with the paddle
 function ballPaddleCollision(ball, paddle) {
+    baseHit.play();
     //Get the offset between the paddle and ball
     let offset = ball.x - paddle.x;
     //Set a new velocity for the ball, adding velocity on X so it bounces in the direction relative to where it hit the paddle.
@@ -217,9 +258,10 @@ function onFirstLoad() {
         localStorage.setItem('hiscore', '0');
     }
 }
+
 //Check if all bricks have been destroyed
 function checkRemainingBricks() {
-    if(numBricks == 0) {
+    if (numBricks == 0) {
         checkHiScore()
         alert("You win!");
         location.reload();
