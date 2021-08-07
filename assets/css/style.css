@@ -5,10 +5,16 @@ body {
     color: #FFF;
     font-family: 'Open Sans', sans-serif;
     height: 75vh;
+    background-image: linear-gradient(#17082e 0%, #1a0933 60%, #34a2c7 100%);
+    background-attachment: fixed;
 }
 
 .pixel-font {
     font-family: 'Press Start 2P', cursive;
+}
+
+.btn-outline-light:hover {
+    color: #1A0933 !important;
 }
 
 .navbar-brand {
@@ -62,7 +68,7 @@ body {
 }
 
 footer {
-    background: linear-gradient(var(--bs-purple), var(--bs-gray-dark));
+    background: linear-gradient(#3DD8FC, #1A0933);
     position: sticky;
     bottom: 0;
 }
@@ -74,15 +80,14 @@ footer .container {
 .contributor-header {
     margin-bottom: 1%;
     display: block;
-    font-size: 2rem;
-    color: var(--bs-white);
+    font-size: 1.2rem;
+    color: #1A0933;
 }
 
 .contributor-socials {
     padding: 0;
     margin: 0;
     list-style: none;
-    font-size: 1.2rem;
 }
 
 .contributor-socials a {

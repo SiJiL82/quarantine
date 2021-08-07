@@ -27,39 +27,34 @@
     * [Media](#Media)
     * [Acknowledgements](#Acknowledgements)
 
-# Project Name
+---
+
+# Quarantine!
 
 ![Project Name](insert path to amiresponsive image here)
 
-View the live project [here](link to live project)
+View the live project [here](https://sijil82.github.io/quarantine/index.html)
 
 Brief into here
 
 ## UX
 ### User Stories
 
-#### First Time User Goals 
-1. As a first time user, I ...
-
-#### Returning User Goals
-1. As a returning user, I ...
-
-#### Site Owner Goals
-1. As the site owner/admin, I ...
+- As a user, I want to be able to know how the game works in an intuitive way
+- As a user, I want to be able to find the instructions easily
+- As a user, I want to find different levels so I can challenge myself
 
 ## Structure
 Description of how the site is structured
 
 ## Design
 * Colour Scheme
-    * Info on the colour scheme here
+    * To get that retro gaming look we used a very vibrant colour scheme combined with some neon styling:
 
-        [Coolers.co](https://coolors.co/) is a good site to find a colour scheme.
+![](readme-files/palette.png)
 
 * Typography
-    * Info on the font etc here
-
-        [Google Fonts](https://fonts.google.com/)
+    * For this project we used two [Google Fonts](https://fonts.google.com/): [Open Sans](https://fonts.google.com/specimen/Open+Sans?query=open) as our main font, and [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P?query=Press+Start+2P), a font with a pixelated look to emphasize some headings
 
 * Imagery
     * Info on the imagery here
@@ -67,9 +62,6 @@ Description of how the site is structured
 ## Wireframes
 * Wireframe of Home Page (for example)
 ![Wireframe of Home Page](insert path to wireframe here)
-
-### Differences Between Wireframes and Final Product
-* Don't know if this section will be necessary 
 
 ## Features
 Brief description on different features
@@ -91,32 +83,27 @@ Brief description on different features
 * [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 
 ### Frameworks, Libraries & Programs Used
-* [Balsamiq](https://balsamiq.com/)
-    * Additional info
+* [Balsamiq](https://balsamiq.com/) was used to create the project's wireframes
+
+* [Bootstrap](https://getbootstrap.com/) was used to create the layout and provide some styling
 
 * [Fontawesome](https://fontawesome.com/)
-    * Additional info
     
 * [Git](https://git-scm.com/)
-    * Additional info
 
 * [GitHub](https://github.com/)
-    * Additional info
 
 * [Google Dev Tools](https://developer.chrome.com/docs/devtools/)
-    * Additional info
 
-* [Google Fonts](https://fonts.google.com/)
-    * Additional info
+* [Google Fonts](https://fonts.google.com/) was used to provide the fonts: Open Sans and Press Start 2P
 
 * [Phaser js](https://phaser.io/)
-    * Additional info
 
 * [Coolers.co](https://coolors.co/)
-    * Additional info
+
+* [Canva](https://www.canva.com/) was used to create the game's logo and icon
 
 * [Am I Responsive](http://ami.responsivedesign.is/)
-    * Additional info
 
 ## Testing
 
