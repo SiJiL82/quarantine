@@ -54,8 +54,18 @@ function preload(){
 
 function create(){
     // Creat sound object for Background Music, and play.
-    const bgMusic = this.sound.add('bg-music');
+    const bgMusic = this.sound.add('bg-music', {
+        volume: 0.25,
+        loop: true
+    });
     bgMusic.play();
+    this.input.keyboard.on('keydown-SPACE', function() {
+        if (bgMusic.isPlaying) {
+            bgMusic.pause();
+        } else {
+            bgMusic.resume();
+        }
+    })
 
     // Set 3 of 4 boundaries to detect collisions
     this.physics.world.setBoundsCollision(true, true, true, false);
@@ -222,6 +232,7 @@ function onFirstLoad() {
         localStorage.setItem('hiscore', '0');
     }
 }
+
 //Check if all bricks have been destroyed
 function checkRemainingBricks() {
     if(numBricks == 0) {
