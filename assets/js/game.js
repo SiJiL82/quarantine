@@ -44,7 +44,8 @@ var hiScore;
 var hiScoreText;
 
 function preload(){
-    this.load.audio('bg-music', 'assets/audio/bgm.ogg')
+    this.load.audio('bg-music', 'assets/audio/bgm.ogg');
+    this.load.audio('hit', 'assets/audio/hit.wav');
     onFirstLoad();
     hiScore = localStorage.getItem('hiscore');
     this.load.image('ball', 'assets/img/ball.png');
@@ -66,6 +67,9 @@ function create(){
             bgMusic.resume();
         }
     })
+
+    //  Create sound object for basic collision sound
+    const baseHit = this.sound.add('hit');
 
     // Set 3 of 4 boundaries to detect collisions
     this.physics.world.setBoundsCollision(true, true, true, false);
