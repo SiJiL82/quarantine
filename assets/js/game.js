@@ -70,6 +70,7 @@ class Game extends Phaser.Scene {
         this.load.image('ball', 'assets/img/ball.png');
         this.load.image('paddle', 'assets/img/paddle.png');
         this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
+        this.load.image('brick-normal', 'assets/img/brick-normal.png');
     }
 
     create() {
@@ -88,11 +89,17 @@ class Game extends Phaser.Scene {
         //Set up the paddle
         initalisePaddle(this);
 
+        //Set up possible brick styles
+        initialiseBrickStyles();
+
         // Create bricks
         initialiseBricks(this);
 
         //Set up score display
         initialiseScore(this);
+
+        //Set up alert text
+        initialiseAlertText(this);
 
         //Set up physics interactions
         initalisePhysics(this);
@@ -235,7 +242,7 @@ function initialiseScore(thisGame) {
 function initialiseAlertText(thisGame) {
     alertText = thisGame.add.text(thisGame.cameras.main.centerX,
         thisGame.cameras.main.centerY,
-        "aaaa", {
+        "", {
             fontFamily: '"Press Start 2P"',
             fontSize: '24px',
             fill: "yellow"
@@ -382,8 +389,35 @@ function initialiseBricks(thisGame) {
     }
 }
 
+//Function called from a positive brick being destroyed
 function onDestroyPowerup() {
-    alertText.setText("Powerup!");
+    //Build an array of possible powerups
+    let powerups = [
+        {
+            name: "Decrease Ball Speed",
+            action: decreaseBallSpeed
+        }
+    ];
+
+    //Get a random array index
+    let randomPowerup = getRandomBetweenRange(0, powerups.length - 1);
+    //Set alert text to the name of the powerup
+    alertText.text =  `${powerups[randomPowerup].name}!`;
+    //Perform the powerup's action
+    powerups[randomPowerup].action();
+}
+
+//Power up to decrease ball's speed
+function decreaseBallSpeed() {
+    ball.body.velocity.x *= 0.8;
+    ball.body.velocity.y *= 0.8;
+    //Clamp the ball speed so it doesn't go too slow
+    if(ball.body.velocity.x < 150) {
+        ball.body.velocity.x = 150
+    }
+    if(ball.body.velocity.y < 150) {
+        ball.body.velocity.y = 150
+    }
 }
 
 function onDestroyHazard() {
