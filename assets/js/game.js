@@ -6,7 +6,7 @@ var ball;
 var paddle;
 var bricks;
 var numBricks = 0;
-var ballFired = false;
+var ballFired;
 var ballLaunchSpeed = 400;
 var score = 0;
 var scoreText;
@@ -72,6 +72,9 @@ class Game extends Phaser.Scene {
     create() {
         // Set current scene
         currentScene = this;
+
+        // Set ballFired back to false
+        ballFired = false
 
         //Set up audio
         initialiseAudio(this);
@@ -391,8 +394,8 @@ function onFirstLoad() {
 //Check if all bricks have been destroyed
 function checkRemainingBricks() {
     if (numBricks == 0) {
-        checkHiScore()
-        currentScene.scene.start('Game')
+        checkHiScore();
+        currentScene.scene.start('YouWin');
     }
 }
 
