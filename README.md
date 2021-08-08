@@ -38,7 +38,7 @@ View the live project [here](https://sijil82.github.io/quarantine/index.html)
 
 Brief into here
 
-## 1. UX
+## UX
 ### User Stories
 
 - As a user, I want to be able to know how the game works in an intuitive way
@@ -88,6 +88,8 @@ Brief description on different features
 * [Balsamiq](https://balsamiq.com/) was used to create the project's wireframes
 
 * [Bootstrap](https://getbootstrap.com/) was used to create the layout and provide some styling
+
+* [Bootwatch](https://bootswatch.com//) was used to change color palete provided by bootstrap
 
 * [Fontawesome](https://fontawesome.com/)
     
