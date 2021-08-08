@@ -93,10 +93,8 @@ function create() {
     // Launch the ball on mouse click
     this.input.on('pointerdown', releaseBall);
 
-    // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
-    paddle = this.physics.add.sprite(400, 595, 'paddle');
-    // Prevents paddle from being pushed away when collision with ball occurs
-    paddle.setImmovable(true)
+    //Set up the paddle
+    initalisePaddle(this);
 
     // Allows ball and paddle to collide
     this.physics.add.collider(ball, paddle, ballPaddleCollision);
@@ -141,6 +139,16 @@ function update() {
     }
     //Check if player has won the round
     checkRemainingBricks();
+}
+
+//Initialise Paddle
+function initalisePaddle(game) {
+    // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
+    paddle = game.physics.add.sprite(400, 595, 'paddle');
+    // Prevents paddle from being pushed away when collision with ball occurs
+    paddle.setImmovable(true)
+    //Set initial paddle position
+    paddle.x = game.cameras.main.centerX
 }
 
 // Fires whenever a world boundary event is captured by the listener above
