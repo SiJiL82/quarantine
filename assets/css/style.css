@@ -52,8 +52,8 @@ body {
 /* Audio Control Buttons */
 #audio-controls {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 160px;
+    right: 50px;
     padding-top: 5px;
     padding-right: 15px;
     z-index: 9999;
@@ -65,14 +65,14 @@ body {
 
 #audio-controls label {
     font-size: 30px;
-    color: silver;
+    color: #F752E0;
     opacity: 0.5;
     cursor: pointer;
 }
 
 #audio-controls input[type="checkbox"]:checked + label {
-    text-shadow: 0 0 0.5em #44d9e8;
-    color: #44d9e8;
+    text-shadow: 0 0 0.5em #f777e6;
+    color: #F752E0;
     opacity: 1;
 }
 
@@ -106,6 +106,10 @@ body {
     }
     .main-div {
         margin-top: 150px;
+    }
+    #audio-controls {
+        top: 100px;
+        right: 20px;
     }
 }
 
@@ -149,3 +153,26 @@ footer .container {
        padding: 0 2%;
    }
   }
+
+
+button {
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.border-neon {
+    background-color: transparent;
+    border: 2px solid #8ddff1;
+    color: #8ddff1;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+ 
+.border-neon:hover, .border-neon:focus {
+    text-decoration: none;
+    -webkit-box-shadow: inset 0px 0px 8px 3px #3DD8FC;
+    box-shadow: 0px 0px 10px 3px #3DD8FC, inset 0px 0px 10px 3px #3DD8FC;
+    border-color: #fff;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #3DD8FC, 0 0 40px #3DD8FC, 0 0 50px #3DD8FC, 0 0 60px #3DD8FC, 0 0 70px #3DD8FC
+}
