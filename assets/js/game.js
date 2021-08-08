@@ -405,6 +405,8 @@ function onDestroyPowerup() {
     alertText.text =  `${powerups[randomPowerup].name}!`;
     //Perform the powerup's action
     powerups[randomPowerup].action();
+    //Clear alert text after it's been set for 2s
+    currentScene.time.delayedCall(2000, clearAlertText, [], currentScene);
 }
 
 //Power up to decrease ball's speed
@@ -422,6 +424,10 @@ function decreaseBallSpeed() {
 
 function onDestroyHazard() {
 
+}
+
+function clearAlertText(){
+    alertText.text = "";
 }
 
 //Define what happens when a brick gets hit
