@@ -15,7 +15,7 @@ body {
 }
 
 .btn-outline-light:hover {
-    color: #1A0933 !important;
+    text-decoration: underline;
 }
 
 .navbar-brand {
@@ -31,6 +31,10 @@ body {
     padding: 8px;
     letter-spacing: 1px;
     text-transform: uppercase;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #17082e;
 }
 
 .hamburger-icon {
