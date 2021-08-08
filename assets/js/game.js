@@ -1,42 +1,12 @@
-// Configure Phaser. 
-// Sets width, height, canvas type & physics engine
-// 'parent' is the id of the div on the page that will hold the canvas
-// 'mode: Phaser.Scale.FIT' ensures the canvas will scale to fit the div,
-// while maintaining 4:3 aspect ratio
-var config = {
-    type: Phaser.CANVAS,
-    parent: 'game-area',
-    width: 800,
-    height: 600,
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH
-    },
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: {
-                y: 0
-            }
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    },
-    backgroundColor: 0x333333
-};
-
-// Instantiate Phaser
-var game = new Phaser.Game(config);
-
 // Declare game variables
+var currentScene;
+var welcome_title;
+var welcome_text;
 var ball;
 var paddle;
 var bricks;
 var numBricks = 0;
-var ballFired = false;
+var ballFired;
 var ballLaunchSpeed = 400;
 var score = 0;
 var scoreText;
@@ -49,47 +19,155 @@ var sfxVolume = 0.05;
 
 addAudioControlListeners();
 
-function preload() {
-    this.load.audio('bg-music', 'assets/audio/bgm.ogg');
-    this.load.audio('hit', 'assets/audio/hit.wav');
-    this.load.audio('pop', 'assets/audio/pop.ogg');
-    onFirstLoad();
-    hiScore = localStorage.getItem('hiscore');
-    this.load.image('ball', 'assets/img/ball.png');
-    this.load.image('paddle', 'assets/img/paddle.png');
-    this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
+// Welcome - Scene Class
+class Welcome extends Phaser.Scene {
+    constructor() {
+        super({
+            key: 'Welcome'
+        });
+    }
+
+    preload() {
+
+    }
+
+    create() {
+        // Set current scene
+        currentScene = this;
+        welcome_title = this.add.text(250, 300, 'Quarantine!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '24px',
+            fill: '#fafafa'
+        })
+        welcome_text = this.add.text(150, 350, 'Press SPACEBAR to begin!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '24px',
+            fill: '#fafafa'
+        })
+        this.input.keyboard.on('keydown-SPACE', function () {
+            currentScene.scene.start('Game');
+        })
+    }
 }
 
-function create() {
-    //Set up audio
-    initialiseAudio(this);
+// Game - Scene Class
+class Game extends Phaser.Scene {
+    constructor() {
+        super({
+            key: 'Game'
+        });
+    }
 
-    //Set up the ball
-    initialiseBall(this);
+    preload() {
+        this.load.audio('bg-music', 'assets/audio/bgm.ogg');
+        this.load.audio('hit', 'assets/audio/hit.wav');
+        this.load.audio('pop', 'assets/audio/pop.ogg');
+        onFirstLoad();
+        hiScore = localStorage.getItem('hiscore');
+        this.load.image('ball', 'assets/img/ball.png');
+        this.load.image('paddle', 'assets/img/paddle.png');
+        this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
+    }
 
-    //Set up the paddle
-    initalisePaddle(this);
+    create() {
+        // Set current scene
+        currentScene = this;
 
-    // Create bricks
-    initialiseBricks(this);
+        // Set ballFired back to false
+        ballFired = false
 
-    //Set up score display
-    initialiseScore(this);
+        //Set up audio
+        initialiseAudio(this);
 
-    //Set up physics interactions
-    initalisePhysics(this);
+        //Set up the ball
+        initialiseBall(this);
+
+        //Set up the paddle
+        initalisePaddle(this);
+
+        // Create bricks
+        initialiseBricks(this);
+
+        //Set up score display
+        initialiseScore(this);
+
+        //Set up physics interactions
+        initalisePhysics(this);
+    }
+
+    //Phaser function called each frame
+    update() {
+        // Set paddle position 
+        setPaddlePosition(this);
+
+        //Stick the ball to the paddle when it's not fired
+        setBallPosition();
+
+        //Check if player has won the round
+        checkRemainingBricks();
+    }
 }
 
-//Phaser function called each frame
-function update() {
-    // Set paddle position 
-    setPaddlePosition(this);
-    
-    //Stick the ball to the paddle when it's not fired
-    setBallPosition();
-    
-    //Check if player has won the round
-    checkRemainingBricks();
+// Game Over - Scene Class
+class GameOver extends Phaser.Scene {
+    constructor() {
+        super({
+            key: 'GameOver'
+        });
+    }
+
+    preload() {
+
+    }
+
+    create() {
+        // Set current scene
+        currentScene = this;
+        welcome_title = this.add.text(250, 300, 'GAME OVER!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '24px',
+            fill: '#fafafa'
+        })
+        welcome_text = this.add.text(150, 350, 'Press SPACEBAR to play again!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '16px',
+            fill: '#fafafa'
+        })
+        this.input.keyboard.on('keydown-SPACE', function () {
+            currentScene.scene.start('Game');
+        })
+    }
+}
+
+// You win - Scene Class
+class YouWin extends Phaser.Scene {
+    constructor() {
+        super({
+            key: 'YouWin'
+        });
+    }
+
+    preload() {
+
+    }
+
+    create() {
+        // Set current scene
+        currentScene = this;
+        welcome_title = this.add.text(250, 300, 'YOU WIN!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '24px',
+            fill: '#fafafa'
+        })
+        welcome_text = this.add.text(150, 350, 'Press SPACEBAR to play again!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '16px',
+            fill: '#fafafa'
+        })
+        this.input.keyboard.on('keydown-SPACE', function () {
+            currentScene.scene.start('Game');
+        })
+    }
 }
 
 //Initialise Paddle
@@ -103,7 +181,7 @@ function initalisePaddle(thisGame) {
 }
 
 //Initialise Audio
-function initialiseAudio(thisGame)  {
+function initialiseAudio(thisGame) {
     // Creat sound object for Background Music, and play.
     bgMusic = thisGame.sound.add('bg-music', {
         volume: sfxVolume
@@ -188,13 +266,12 @@ function onWorldBounds() {
     //Fell out the bottom of the world
     if (ball.y > (paddle.y)) {
         checkHiScore();
-        alert('Game Over!');
-        location.reload();
+        currentScene.scene.start('GameOver')
     }
     //Collided with a wall - add velocity on collision to stop the ball getting stuck in a continuous horizontal bounce
     else {
         //Only adjust the ball velocity if the ball has been fired
-        if(ballFired) {
+        if (ballFired) {
             let ballXVelocity = ball.body.velocity.x;
             let ballYVelocity = ball.body.velocity.y;
             //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
@@ -206,7 +283,7 @@ function onWorldBounds() {
                 ballYVelocity -= 0.1;
             }
             ball.setVelocity(ballXVelocity, ballYVelocity);
-        }   
+        }
     }
 }
 
@@ -317,9 +394,8 @@ function onFirstLoad() {
 //Check if all bricks have been destroyed
 function checkRemainingBricks() {
     if (numBricks == 0) {
-        checkHiScore()
-        alert("You win!");
-        location.reload();
+        checkHiScore();
+        currentScene.scene.start('YouWin');
     }
 }
 
@@ -334,8 +410,38 @@ function toggleMusic() {
     let musicControlButton = document.getElementById("music-toggle");
     if (musicControlButton.checked) {
         bgMusic.play();
-    }
-    else {
+    } else {
         bgMusic.pause();
     }
 }
+
+
+
+// Configure Phaser. 
+// Sets width, height, canvas type & physics engine
+// 'parent' is the id of the div on the page that will hold the canvas
+// 'mode: Phaser.Scale.FIT' ensures the canvas will scale to fit the div,
+// while maintaining 4:3 aspect ratio
+var config = {
+    type: Phaser.CANVAS,
+    parent: 'game-area',
+    width: 800,
+    height: 600,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: {
+                y: 0
+            }
+        }
+    },
+    scene: [Welcome, Game, GameOver, YouWin],
+    backgroundColor: 0x333333
+};
+
+// Instantiate Phaser
+var game = new Phaser.Game(config);
