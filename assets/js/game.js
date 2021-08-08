@@ -57,7 +57,9 @@ function preload() {
     hiScore = localStorage.getItem('hiscore');
     this.load.image('ball', 'assets/img/ball.png');
     this.load.image('paddle', 'assets/img/paddle.png');
+    //Brick images
     this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
+    this.load.image('brick-normal', 'assets/img/brick-normal.png');
 }
 
 function create() {
