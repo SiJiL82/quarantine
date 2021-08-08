@@ -31,7 +31,7 @@
 
 # Quarantine!
 
-![Project Name](insert path to amiresponsive image here)
+Padgaming productions presents: ![Quarantine](readme-files/Wireframes.pdf)
 
 View the live project [here](https://sijil82.github.io/quarantine/index.html)
 
