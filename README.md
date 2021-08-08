@@ -62,8 +62,9 @@ Description of how the site is structured
     * Info on the imagery here
 
 ## Wireframes
-* Wireframe of Home Page (for example)
-![Wireframe of Home Page](readme-files/Wireframes.pdf)
+* The website consists of 3 pages. Each page structure is identical. The general outline of the page was designed as per below pdf document.
+
+![Wireframe](quarantine/readme-files/wireframes.pdf)
 
 ## Features
 Brief description on different features
