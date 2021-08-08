@@ -16,6 +16,8 @@ var bgMusic;
 var baseHit;
 var pop;
 var sfxVolume = 0.05;
+var lives = 3;
+var livesText;
 
 addAudioControlListeners();
 
@@ -106,6 +108,9 @@ class Game extends Phaser.Scene {
         //Check if player has won the round
         checkRemainingBricks();
 
+        // Check if player will lose a life
+        checkLifeLost();
+
         //Check if player has lost the round
         checkGameOver();
     }
@@ -126,6 +131,10 @@ class GameOver extends Phaser.Scene {
     create() {
         // Set current scene
         currentScene = this;
+        // Set lives back to 3, and score back to 0
+        lives = 3
+        score = 0
+
         welcome_title = this.add.text(250, 300, 'GAME OVER!', {
             fontFamily: '"Press Start 2P"',
             fontSize: '24px',
@@ -219,7 +228,12 @@ function initialiseBall(thisGame) {
 //Initialise Score display
 function initialiseScore(thisGame) {
     // Display the scores
-    scoreText = thisGame.add.text(8, 4, 'SCORE: 0', {
+    scoreText = thisGame.add.text(8, 4, 'SCORE: ' + score, {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '24px',
+        fill: '#fafafa'
+    });
+    livesText = thisGame.add.text(260, 4, 'LIVES: ' + lives, {
         fontFamily: '"Press Start 2P"',
         fontSize: '24px',
         fill: '#fafafa'
@@ -397,8 +411,16 @@ function checkRemainingBricks() {
 }
 
 // Check if ball is below paddle
-function checkGameOver() {
+function checkLifeLost() {
     if (ball.y > (paddle.y)) {
+        lives -= 1;
+        currentScene.scene.restart();
+    }
+}
+
+// Check if ball is below paddle
+function checkGameOver() {
+    if (lives == 0) {
         checkHiScore();
         currentScene.scene.start('GameOver')
     }
