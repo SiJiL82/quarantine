@@ -84,17 +84,8 @@ function create() {
     //Add brick and ball collision
     this.physics.add.collider(ball, bricks, ballBrickCollsion);
 
-    // Display the scores
-    scoreText = this.add.text(8, 4, 'SCORE: 0', {
-        fontFamily: '"Press Start 2P"',
-        fontSize: '24px',
-        fill: '#fafafa'
-    });
-    hiScoreText = this.add.text(515, 4, 'HISCORE: ' + hiScore, {
-        fontFamily: '"Press Start 2P"',
-        fontSize: '24px',
-        fill: '#fafafa'
-    });
+    //Set up score display
+    initialiseScore(this);
 }
 
 //Phaser function called each frame
@@ -153,7 +144,19 @@ function initialiseBall(thisGame) {
 }
 
 //Initialise Score display
-//function initialiseScore(thisGame)
+function initialiseScore(thisGame) {
+    // Display the scores
+    scoreText = thisGame.add.text(8, 4, 'SCORE: 0', {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '24px',
+        fill: '#fafafa'
+    });
+    hiScoreText = thisGame.add.text(515, 4, 'HISCORE: ' + hiScore, {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '24px',
+        fill: '#fafafa'
+    });
+}
 
 
 //Set paddle position
@@ -242,7 +245,7 @@ function ballBrickCollsion(ball, brick) {
 
     // Increment score variable by 10, and write to screen
     score += 10;
-    scoreText.setText('Score: ' + score);
+    scoreText.setText('SCORE: ' + score);
 }
 
 //Set the velocity of the ball to fire up from the paddle
