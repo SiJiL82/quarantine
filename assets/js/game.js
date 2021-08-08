@@ -105,6 +105,38 @@ class Game extends Phaser.Scene {
     }
 }
 
+// Game Over - Scene Class
+class GameOver extends Phaser.Scene {
+    constructor() {
+        super({
+            key: 'GameOver'
+        });
+    }
+
+    preload() {
+
+    }
+
+    create() {
+        // Set current scene
+        currentScene = this;
+        welcome_title = this.add.text(250, 300, 'GAME OVER!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '24px',
+            fill: '#fafafa'
+        })
+        welcome_text = this.add.text(150, 350, 'Press SPACEBAR to play again!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '16px',
+            fill: '#fafafa'
+        })
+        this.input.keyboard.on('keydown-SPACE', function () {
+            currentScene.scene.start('Game');
+        })
+    }
+}
+
+
 //Initialise Paddle
 function initalisePaddle(thisGame) {
     // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
@@ -201,8 +233,7 @@ function onWorldBounds() {
     //Fell out the bottom of the world
     if (ball.y > (paddle.y)) {
         checkHiScore();
-        alert('Game Over!');
-        location.reload();
+        currentScene.scene.start('GameOver')
     }
     //Collided with a wall - add velocity on collision to stop the ball getting stuck in a continuous horizontal bounce
     else {
@@ -376,7 +407,7 @@ var config = {
             }
         }
     },
-    scene: [Welcome, Game],
+    scene: [Welcome, Game, GameOver],
     backgroundColor: 0x333333
 };
 
