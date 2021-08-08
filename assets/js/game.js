@@ -60,24 +60,8 @@ function preload() {
 }
 
 function create() {
-    // Creat sound object for Background Music, and play.
-    bgMusic = this.sound.add('bg-music', {
-        volume: 0.25
-    });
-    bgMusic.setLoop(true);
-    this.input.keyboard.on('keydown-SPACE', function () {
-        toggleMusic();
-    })
-
-    //  Create sound object for basic collision sound
-    baseHit = this.sound.add('hit', {
-        volume: 0.25
-    });
-
-    //  Create sound object for basic collision sound
-    pop = this.sound.add('pop', {
-        volume: 0.25
-    });
+    //Set up audio
+    initialiseAudio(this);
 
     // Set 3 of 4 boundaries to detect collisions
     this.physics.world.setBoundsCollision(true, true, true, false);
@@ -120,15 +104,7 @@ function create() {
     });
 }
 
-//Turn background music on and off
-function toggleMusic() {
-    if (bgMusic.isPlaying) {
-        bgMusic.pause();
-    } else {
-        bgMusic.resume();
-    }
-}
-
+//Phaser function called each frame
 function update() {
     // Set paddle position 
     setPaddlePosition(this);
@@ -149,6 +125,27 @@ function initalisePaddle(game) {
     //Set initial paddle position
     paddle.x = game.cameras.main.centerX
 }
+
+//Initialise Audio
+function initialiseAudio(game)  {
+    // Creat sound object for Background Music, and play.
+    bgMusic = game.sound.add('bg-music', {
+        volume: 0.25
+    });
+    bgMusic.setLoop(true);
+
+    //  Create sound object for basic collision sound
+    baseHit = game.sound.add('hit', {
+        volume: 0.25
+    });
+
+    //  Create sound object for basic collision sound
+    pop = game.sound.add('pop', {
+        volume: 0.25
+    });
+}
+
+
 
 //Set paddle position
 function setPaddlePosition(game) {
@@ -183,6 +180,15 @@ function onWorldBounds() {
             }
             ball.setVelocity(ballXVelocity, ballYVelocity);
         }   
+    }
+}
+
+//Turn background music on and off
+function toggleMusic() {
+    if (bgMusic.isPlaying) {
+        bgMusic.pause();
+    } else {
+        bgMusic.resume();
     }
 }
 
