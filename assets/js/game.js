@@ -45,6 +45,7 @@ var hiScoreText;
 var bgMusic;
 var baseHit;
 var pop;
+var sfxVolume = 0.05;
 
 addAudioControlListeners();
 
@@ -105,18 +106,18 @@ function initalisePaddle(thisGame) {
 function initialiseAudio(thisGame)  {
     // Creat sound object for Background Music, and play.
     bgMusic = thisGame.sound.add('bg-music', {
-        volume: 0.25
+        volume: sfxVolume
     });
     bgMusic.setLoop(true);
 
     //  Create sound object for basic collision sound
     baseHit = thisGame.sound.add('hit', {
-        volume: 0.25
+        volume: sfxVolume
     });
 
     //  Create sound object for basic collision sound
     pop = thisGame.sound.add('pop', {
-        volume: 0.25
+        volume: sfxVolume
     });
 }
 
