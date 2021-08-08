@@ -46,6 +46,8 @@ var bgMusic;
 var baseHit;
 var pop;
 
+addAudioControlListeners();
+
 function preload() {
     this.load.audio('bg-music', 'assets/audio/bgm.ogg');
     this.load.audio('hit', 'assets/audio/hit.wav');
@@ -62,7 +64,6 @@ function create() {
     bgMusic = this.sound.add('bg-music', {
         volume: 0.25
     });
-    bgMusic.play();
     bgMusic.setLoop(true);
     this.input.keyboard.on('keydown-SPACE', function () {
         toggleMusic();
@@ -273,5 +274,22 @@ function checkRemainingBricks() {
         checkHiScore()
         alert("You win!");
         location.reload();
+    }
+}
+
+//Add event listener to any audio control buttons
+function addAudioControlListeners() {
+    let musicControlButton = document.getElementById("music-toggle");
+    musicControlButton.addEventListener("change", toggleMusic);
+}
+
+//If music is set to play, turn it off. If it is off, turn it on
+function toggleMusic() {
+    let musicControlButton = document.getElementById("music-toggle");
+    if (musicControlButton.checked) {
+        bgMusic.play();
+    }
+    else {
+        bgMusic.pause();
     }
 }
