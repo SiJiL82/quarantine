@@ -46,6 +46,14 @@ body {
     margin-top: 180px;
 }
 
+#audio-controls {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+
 /* Gameplay area */
 #game-area {
     margin: 0 auto;
