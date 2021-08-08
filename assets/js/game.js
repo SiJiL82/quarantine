@@ -170,7 +170,7 @@ function initialiseBrickStyles() {
     //First Aid Brick (Powerup)
     let firstAidBrick = {
         name: 'brick-first-aid',
-        score: 20,
+        score: 100,
         chance: 5,
         onDestroy: onDestroyPowerup
     }
@@ -274,7 +274,13 @@ function initialiseBricks(thisGame) {
         for (let row = 0; row < brickLayout.count.row; row++) {
             let brickX = (column * (brickConfig.width + brickLayout.padding)) + brickLayout.offset.left;
             let brickY = (row * (brickConfig.height + brickLayout.padding)) + brickLayout.offset.top;
-            bricks.create(brickX, brickY, chooseBrickToAdd());
+            //Get the brick type we want to add to the array
+            let brickToAdd = chooseBrickToAdd();
+            //Add the new brock to the collection
+            let newBrick = bricks.create(brickX, brickY, brickToAdd);
+            //Set the name of the new brick to the brick type, so we can use it later.
+            newBrick.name = brickToAdd;
+            //Increment the number of bricks in the game
             numBricks++;
         }
     }
@@ -301,12 +307,35 @@ function onDestroyHazard() {
 
 //Define what happens when a brick gets hit
 function ballBrickCollsion(ball, brick) {
+    //Play sfx
     pop.play();
+    //Remove the brick
     brick.disableBody(true, true);
+    //Decrease the number of active bricks in the game
     numBricks--;
 
-    // Increment score variable by 10, and write to screen
-    score += 10;
+    //Add score
+    increaseScore(brick);
+}
+
+//Add score based on the properties of the destroyed brick
+function increaseScore(brick) {
+    //Check if we hit the default brick and get its score
+    if(brick.name == defaultBrick.name) {
+        score += defaultBrick.score;
+    }
+    //Loop through the other bricks and get their score value
+    else {
+        for(let brickStyle of brickStyles) {
+            if(brick.name == brickStyle.name) {
+                score += brickStyle.score;
+            }
+        }
+    }
+    updateScoreText();
+}
+
+function updateScoreText() {
     scoreText.setText('SCORE: ' + score);
 }
 
