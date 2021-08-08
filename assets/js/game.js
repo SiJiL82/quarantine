@@ -65,11 +65,7 @@ function create() {
     bgMusic.play();
     bgMusic.setLoop(true);
     this.input.keyboard.on('keydown-SPACE', function () {
-        if (bgMusic.isPlaying) {
-            bgMusic.pause();
-        } else {
-            bgMusic.resume();
-        }
+        toggleMusic();
     })
 
     //  Create sound object for basic collision sound
@@ -123,6 +119,15 @@ function create() {
         fontSize: '24px',
         fill: '#fafafa'
     });
+}
+
+//Turn background music on and off
+function toggleMusic() {
+    if (bgMusic.isPlaying) {
+        bgMusic.pause();
+    } else {
+        bgMusic.resume();
+    }
 }
 
 function update() {
