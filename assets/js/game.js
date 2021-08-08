@@ -1,4 +1,7 @@
 // Declare game variables
+var currentScene;
+var welcome_title;
+var welcome_text;
 var ball;
 var paddle;
 var bricks;
@@ -16,6 +19,38 @@ var sfxVolume = 0.05;
 
 addAudioControlListeners();
 
+// Welcome - Scene Class
+class Welcome extends Phaser.Scene {
+    constructor() {
+        super({
+            key: 'Welcome'
+        });
+    }
+
+    preload() {
+
+    }
+
+    create() {
+        // Set current scene
+        currentScene = this;
+        welcome_title = this.add.text(250, 300, 'Quarantine!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '24px',
+            fill: '#fafafa'
+        })
+        welcome_text = this.add.text(150, 350, 'Press SPACEBAR to begin!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '24px',
+            fill: '#fafafa'
+        })
+        this.input.keyboard.on('keydown-SPACE', function () {
+            currentScene.scene.start('Game');
+        })
+    }
+}
+
+// Game - Scene Class
 class Game extends Phaser.Scene {
     constructor() {
         super({
@@ -35,6 +70,9 @@ class Game extends Phaser.Scene {
     }
 
     create() {
+        // Set current scene
+        currentScene = this;
+
         //Set up audio
         initialiseAudio(this);
 
@@ -338,7 +376,7 @@ var config = {
             }
         }
     },
-    scene: [Game],
+    scene: [Welcome, Game],
     backgroundColor: 0x333333
 };
 
