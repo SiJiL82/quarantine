@@ -436,7 +436,7 @@ var config = {
             }
         }
     },
-    scene: [Welcome, Game, GameOver],
+    scene: [Welcome, Game, GameOver, YouWin],
     backgroundColor: 0x333333
 };
 
