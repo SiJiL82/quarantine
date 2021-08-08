@@ -93,10 +93,8 @@ function create() {
     // Launch the ball on mouse click
     this.input.on('pointerdown', releaseBall);
 
-    // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
-    paddle = this.physics.add.sprite(400, 595, 'paddle');
-    // Prevents paddle from being pushed away when collision with ball occurs
-    paddle.setImmovable(true)
+    //Set up the paddle
+    initalisePaddle(this);
 
     // Allows ball and paddle to collide
     this.physics.add.collider(ball, paddle, ballPaddleCollision);
@@ -132,15 +130,32 @@ function toggleMusic() {
 }
 
 function update() {
-    // Moves the paddle along the x axis based on player input (mouse or touch)
-    // Defaults to 400 (half of width declared in config) to center the paddle on load
-    paddle.x = this.input.x || 400;
+    // Set paddle position 
+    setPaddlePosition(this);
     //Stick the ball to the paddle when it's not fired
     if (!ballFired) {
         ball.x = paddle.x;
     }
     //Check if player has won the round
     checkRemainingBricks();
+}
+
+//Initialise Paddle
+function initalisePaddle(game) {
+    // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
+    paddle = game.physics.add.sprite(400, 595, 'paddle');
+    // Prevents paddle from being pushed away when collision with ball occurs
+    paddle.setImmovable(true)
+    //Set initial paddle position
+    paddle.x = game.cameras.main.centerX
+}
+
+//Set paddle position
+function setPaddlePosition(game) {
+    // Moves the paddle along the x axis based on player input (mouse or touch)
+    let minPaddlePos = paddle.width / 2;
+    let maxPaddlePos = game.cameras.main.width - (paddle.width / 2);
+    paddle.x = Phaser.Math.Clamp(game.input.x, minPaddlePos, maxPaddlePos);
 }
 
 // Fires whenever a world boundary event is captured by the listener above
