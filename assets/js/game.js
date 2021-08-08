@@ -46,6 +46,7 @@ var bgMusic;
 var baseHit;
 var pop;
 var sfxVolume = 0.05;
+var brickStyles = [];
 
 addAudioControlListeners();
 
@@ -71,6 +72,9 @@ function create() {
 
     //Set up the paddle
     initalisePaddle(this);
+
+    //Set up possible brick styles
+    initialiseBrickStyles();
 
     // Create bricks
     initialiseBricks(this);
@@ -150,6 +154,24 @@ function initialiseScore(thisGame) {
         fontSize: '24px',
         fill: '#fafafa'
     });
+}
+
+//Initialise Brick styles
+function initialiseBrickStyles() {
+    //Normal brick
+    let normalBrick = {
+        name: 'brick-normal',
+        score: 10
+    }
+    brickStyles.push(normalBrick);
+
+    //First Aid Brick (Powerup)
+    let firstAidBrick = {
+        name: 'brick-first-aid',
+        score: 20,
+        chance: 10,
+        onDestroy: onDestroyPowerup
+    }
 }
 
 // Configure physics
@@ -243,15 +265,38 @@ const brickLayout = {
 //Create bricks on screen from config
 function initialiseBricks(thisGame) {
     bricks = thisGame.physics.add.staticGroup();
+
     //Loop through the number of columns and rows in the layout definition
     for (let column = 0; column < brickLayout.count.col; column++) {
         for (let row = 0; row < brickLayout.count.row; row++) {
             let brickX = (column * (brickConfig.width + brickLayout.padding)) + brickLayout.offset.left;
             let brickY = (row * (brickConfig.height + brickLayout.padding)) + brickLayout.offset.top;
-            bricks.create(brickX, brickY, 'brick-first-aid');
+            bricks.create(brickX, brickY, chooseBrickToAdd());
             numBricks++;
         }
     }
+
+    //Choose which brick to add from the array of potential bricks
+    function chooseBrickToAdd() {
+        let chosen = false;
+        
+        for(let brickStyle of brickStyles) {
+            if('chance' in brickStyle) {
+                //Random number to see if we pick this one
+            }
+            else {
+                return brickStyle.name;
+            }
+        }
+    }
+}
+
+function onDestroyPowerup() {
+
+}
+
+function onDestroyHazard() {
+
 }
 
 //Define what happens when a brick gets hit
