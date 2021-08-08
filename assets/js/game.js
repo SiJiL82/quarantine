@@ -45,6 +45,7 @@ var hiScoreText;
 var bgMusic;
 var baseHit;
 var pop;
+var sfxVolume = 0.05;
 
 addAudioControlListeners();
 
@@ -60,30 +61,70 @@ function preload() {
 }
 
 function create() {
+    //Set up audio
+    initialiseAudio(this);
+
+    //Set up the ball
+    initialiseBall(this);
+
+    //Set up the paddle
+    initalisePaddle(this);
+
+    // Create bricks
+    initialiseBricks(this);
+
+    //Set up score display
+    initialiseScore(this);
+
+    //Set up physics interactions
+    initalisePhysics(this);
+}
+
+//Phaser function called each frame
+function update() {
+    // Set paddle position 
+    setPaddlePosition(this);
+    
+    //Stick the ball to the paddle when it's not fired
+    setBallPosition();
+    
+    //Check if player has won the round
+    checkRemainingBricks();
+}
+
+//Initialise Paddle
+function initalisePaddle(thisGame) {
+    // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
+    paddle = thisGame.physics.add.sprite(400, 595, 'paddle');
+    // Prevents paddle from being pushed away when collision with ball occurs
+    paddle.setImmovable(true)
+    //Set initial paddle position
+    paddle.x = thisGame.cameras.main.centerX
+}
+
+//Initialise Audio
+function initialiseAudio(thisGame)  {
     // Creat sound object for Background Music, and play.
-    bgMusic = this.sound.add('bg-music', {
-        volume: 0.25
+    bgMusic = thisGame.sound.add('bg-music', {
+        volume: sfxVolume
     });
     bgMusic.setLoop(true);
-    this.input.keyboard.on('keydown-SPACE', function () {
-        toggleMusic();
-    })
 
     //  Create sound object for basic collision sound
-    baseHit = this.sound.add('hit', {
-        volume: 0.25
+    baseHit = thisGame.sound.add('hit', {
+        volume: sfxVolume
     });
 
     //  Create sound object for basic collision sound
-    pop = this.sound.add('pop', {
-        volume: 0.25
+    pop = thisGame.sound.add('pop', {
+        volume: sfxVolume
     });
+}
 
-    // Set 3 of 4 boundaries to detect collisions
-    this.physics.world.setBoundsCollision(true, true, true, false);
-
+//Initialise Ball
+function initialiseBall(thisGame) {
     // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader 
-    ball = this.physics.add.sprite(400, 575, 'ball');
+    ball = thisGame.physics.add.sprite(400, 575, 'ball');
     // Tells ball to collide with world boundaries
     ball.setCollideWorldBounds(true);
     // Allows ball to create an event when a world boundary collision occurs
@@ -91,71 +132,54 @@ function create() {
     // Lets ball bounce
     ball.setBounce(1, 1);
     // Launch the ball on mouse click
-    this.input.on('pointerdown', releaseBall);
+    thisGame.input.on('pointerdown', releaseBall);
+}
 
-    //Set up the paddle
-    initalisePaddle(this);
+//Initialise Score display
+function initialiseScore(thisGame) {
+    // Display the scores
+    scoreText = thisGame.add.text(8, 4, 'SCORE: 0', {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '24px',
+        fill: '#fafafa'
+    });
+    hiScoreText = thisGame.add.text(515, 4, 'HISCORE: ' + hiScore, {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '24px',
+        fill: '#fafafa'
+    });
+}
+
+// Configure physics
+function initalisePhysics(thisGame) {
+    // Set 3 of 4 boundaries to detect collisions
+    thisGame.physics.world.setBoundsCollision(true, true, true, false);
 
     // Allows ball and paddle to collide
-    this.physics.add.collider(ball, paddle, ballPaddleCollision);
+    thisGame.physics.add.collider(ball, paddle, ballPaddleCollision);
 
     // Listens for world boundary event, and triggers onWorldBounds
-    this.physics.world.on('worldbounds', onWorldBounds);
+    thisGame.physics.world.on('worldbounds', onWorldBounds);
 
-    // Create bricks
-    bricks = createBricks();
     //Add brick and ball collision
-    this.physics.add.collider(ball, bricks, ballBrickCollsion);
-
-    // Display the scores
-    scoreText = this.add.text(8, 4, 'SCORE: 0', {
-        fontFamily: '"Press Start 2P"',
-        fontSize: '24px',
-        fill: '#fafafa'
-    });
-    hiScoreText = this.add.text(515, 4, 'HISCORE: ' + hiScore, {
-        fontFamily: '"Press Start 2P"',
-        fontSize: '24px',
-        fill: '#fafafa'
-    });
+    thisGame.physics.add.collider(ball, bricks, ballBrickCollsion);
 }
 
-//Turn background music on and off
-function toggleMusic() {
-    if (bgMusic.isPlaying) {
-        bgMusic.pause();
-    } else {
-        bgMusic.resume();
-    }
+
+//Set paddle position
+function setPaddlePosition(thisGame) {
+    // Moves the paddle along the x axis based on player input (mouse or touch)
+    let minPaddlePos = paddle.width / 2;
+    let maxPaddlePos = thisGame.cameras.main.width - (paddle.width / 2);
+    paddle.x = Phaser.Math.Clamp(thisGame.input.x, minPaddlePos, maxPaddlePos);
 }
 
-function update() {
-    // Set paddle position 
-    setPaddlePosition(this);
-    //Stick the ball to the paddle when it's not fired
+//Set ball position when it hasn't been fired yet
+function setBallPosition() {
+    //Stick the ball to the paddle
     if (!ballFired) {
         ball.x = paddle.x;
     }
-    //Check if player has won the round
-    checkRemainingBricks();
-}
-
-//Initialise Paddle
-function initalisePaddle(game) {
-    // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
-    paddle = game.physics.add.sprite(400, 595, 'paddle');
-    // Prevents paddle from being pushed away when collision with ball occurs
-    paddle.setImmovable(true)
-    //Set initial paddle position
-    paddle.x = game.cameras.main.centerX
-}
-
-//Set paddle position
-function setPaddlePosition(game) {
-    // Moves the paddle along the x axis based on player input (mouse or touch)
-    let minPaddlePos = paddle.width / 2;
-    let maxPaddlePos = game.cameras.main.width - (paddle.width / 2);
-    paddle.x = Phaser.Math.Clamp(game.input.x, minPaddlePos, maxPaddlePos);
 }
 
 // Fires whenever a world boundary event is captured by the listener above
@@ -186,6 +210,15 @@ function onWorldBounds() {
     }
 }
 
+//Turn background music on and off
+function toggleMusic() {
+    if (bgMusic.isPlaying) {
+        bgMusic.pause();
+    } else {
+        bgMusic.resume();
+    }
+}
+
 //Brick config
 const brickConfig = {
     width: 64,
@@ -206,8 +239,8 @@ const brickLayout = {
 };
 
 //Create bricks on screen from config
-function createBricks() {
-    const bricks = game.scene.scenes[0].physics.add.staticGroup();
+function initialiseBricks(thisGame) {
+    bricks = thisGame.physics.add.staticGroup();
     //Loop through the number of columns and rows in the layout definition
     for (let column = 0; column < brickLayout.count.col; column++) {
         for (let row = 0; row < brickLayout.count.row; row++) {
@@ -217,8 +250,6 @@ function createBricks() {
             numBricks++;
         }
     }
-
-    return bricks;
 }
 
 //Define what happens when a brick gets hit
@@ -229,7 +260,7 @@ function ballBrickCollsion(ball, brick) {
 
     // Increment score variable by 10, and write to screen
     score += 10;
-    scoreText.setText('Score: ' + score);
+    scoreText.setText('SCORE: ' + score);
 }
 
 //Set the velocity of the ball to fire up from the paddle
