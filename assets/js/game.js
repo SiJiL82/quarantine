@@ -105,6 +105,9 @@ class Game extends Phaser.Scene {
 
         //Check if player has won the round
         checkRemainingBricks();
+
+        //Check if player has lost the round
+        checkGameOver();
     }
 }
 
@@ -263,29 +266,23 @@ function setBallPosition() {
 // Fires whenever a world boundary event is captured by the listener above
 // Checks if player has lost, i.e. if the ball's position on y axis is below the paddle's
 function onWorldBounds() {
-    //Fell out the bottom of the world
-    if (ball.y > (paddle.y)) {
-        checkHiScore();
-        currentScene.scene.start('GameOver')
-    }
     //Collided with a wall - add velocity on collision to stop the ball getting stuck in a continuous horizontal bounce
-    else {
-        //Only adjust the ball velocity if the ball has been fired
-        if (ballFired) {
-            let ballXVelocity = ball.body.velocity.x;
-            let ballYVelocity = ball.body.velocity.y;
-            //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
-            if (ball.body.velocity.y >= 0) {
-                ballYVelocity += 0.1;
-            }
-            //If ball is moving upwards when it hits the wall, add a little bit more upwards velocity
-            else {
-                ballYVelocity -= 0.1;
-            }
-            ball.setVelocity(ballXVelocity, ballYVelocity);
+    //Only adjust the ball velocity if the ball has been fired
+    if (ballFired) {
+        let ballXVelocity = ball.body.velocity.x;
+        let ballYVelocity = ball.body.velocity.y;
+        //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
+        if (ball.body.velocity.y >= 0) {
+            ballYVelocity += 0.1;
         }
+        //If ball is moving upwards when it hits the wall, add a little bit more upwards velocity
+        else {
+            ballYVelocity -= 0.1;
+        }
+        ball.setVelocity(ballXVelocity, ballYVelocity);
     }
 }
+
 
 //Turn background music on and off
 function toggleMusic() {
@@ -399,6 +396,14 @@ function checkRemainingBricks() {
     }
 }
 
+// Check if ball is below paddle
+function checkGameOver() {
+    if (ball.y > (paddle.y)) {
+        checkHiScore();
+        currentScene.scene.start('GameOver')
+    }
+}
+
 //Add event listener to any audio control buttons
 function addAudioControlListeners() {
     let musicControlButton = document.getElementById("music-toggle");
@@ -414,7 +419,6 @@ function toggleMusic() {
         bgMusic.pause();
     }
 }
-
 
 
 // Configure Phaser. 
