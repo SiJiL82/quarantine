@@ -1,36 +1,3 @@
-// Configure Phaser. 
-// Sets width, height, canvas type & physics engine
-// 'parent' is the id of the div on the page that will hold the canvas
-// 'mode: Phaser.Scale.FIT' ensures the canvas will scale to fit the div,
-// while maintaining 4:3 aspect ratio
-var config = {
-    type: Phaser.CANVAS,
-    parent: 'game-area',
-    width: 800,
-    height: 600,
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH
-    },
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: {
-                y: 0
-            }
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    },
-    backgroundColor: 0x333333
-};
-
-// Instantiate Phaser
-var game = new Phaser.Game(config);
-
 // Declare game variables
 var ball;
 var paddle;
@@ -49,47 +16,55 @@ var sfxVolume = 0.05;
 
 addAudioControlListeners();
 
-function preload() {
-    this.load.audio('bg-music', 'assets/audio/bgm.ogg');
-    this.load.audio('hit', 'assets/audio/hit.wav');
-    this.load.audio('pop', 'assets/audio/pop.ogg');
-    onFirstLoad();
-    hiScore = localStorage.getItem('hiscore');
-    this.load.image('ball', 'assets/img/ball.png');
-    this.load.image('paddle', 'assets/img/paddle.png');
-    this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
-}
+class Game extends Phaser.Scene {
+    constructor() {
+        super({
+            key: 'Game'
+        });
+    }
 
-function create() {
-    //Set up audio
-    initialiseAudio(this);
+    preload() {
+        this.load.audio('bg-music', 'assets/audio/bgm.ogg');
+        this.load.audio('hit', 'assets/audio/hit.wav');
+        this.load.audio('pop', 'assets/audio/pop.ogg');
+        onFirstLoad();
+        hiScore = localStorage.getItem('hiscore');
+        this.load.image('ball', 'assets/img/ball.png');
+        this.load.image('paddle', 'assets/img/paddle.png');
+        this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
+    }
 
-    //Set up the ball
-    initialiseBall(this);
+    create() {
+        //Set up audio
+        initialiseAudio(this);
 
-    //Set up the paddle
-    initalisePaddle(this);
+        //Set up the ball
+        initialiseBall(this);
 
-    // Create bricks
-    initialiseBricks(this);
+        //Set up the paddle
+        initalisePaddle(this);
 
-    //Set up score display
-    initialiseScore(this);
+        // Create bricks
+        initialiseBricks(this);
 
-    //Set up physics interactions
-    initalisePhysics(this);
-}
+        //Set up score display
+        initialiseScore(this);
 
-//Phaser function called each frame
-function update() {
-    // Set paddle position 
-    setPaddlePosition(this);
-    
-    //Stick the ball to the paddle when it's not fired
-    setBallPosition();
-    
-    //Check if player has won the round
-    checkRemainingBricks();
+        //Set up physics interactions
+        initalisePhysics(this);
+    }
+
+    //Phaser function called each frame
+    update() {
+        // Set paddle position 
+        setPaddlePosition(this);
+
+        //Stick the ball to the paddle when it's not fired
+        setBallPosition();
+
+        //Check if player has won the round
+        checkRemainingBricks();
+    }
 }
 
 //Initialise Paddle
@@ -103,7 +78,7 @@ function initalisePaddle(thisGame) {
 }
 
 //Initialise Audio
-function initialiseAudio(thisGame)  {
+function initialiseAudio(thisGame) {
     // Creat sound object for Background Music, and play.
     bgMusic = thisGame.sound.add('bg-music', {
         volume: sfxVolume
@@ -194,7 +169,7 @@ function onWorldBounds() {
     //Collided with a wall - add velocity on collision to stop the ball getting stuck in a continuous horizontal bounce
     else {
         //Only adjust the ball velocity if the ball has been fired
-        if(ballFired) {
+        if (ballFired) {
             let ballXVelocity = ball.body.velocity.x;
             let ballYVelocity = ball.body.velocity.y;
             //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
@@ -206,7 +181,7 @@ function onWorldBounds() {
                 ballYVelocity -= 0.1;
             }
             ball.setVelocity(ballXVelocity, ballYVelocity);
-        }   
+        }
     }
 }
 
@@ -334,8 +309,38 @@ function toggleMusic() {
     let musicControlButton = document.getElementById("music-toggle");
     if (musicControlButton.checked) {
         bgMusic.play();
-    }
-    else {
+    } else {
         bgMusic.pause();
     }
 }
+
+
+
+// Configure Phaser. 
+// Sets width, height, canvas type & physics engine
+// 'parent' is the id of the div on the page that will hold the canvas
+// 'mode: Phaser.Scale.FIT' ensures the canvas will scale to fit the div,
+// while maintaining 4:3 aspect ratio
+var config = {
+    type: Phaser.CANVAS,
+    parent: 'game-area',
+    width: 800,
+    height: 600,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: {
+                y: 0
+            }
+        }
+    },
+    scene: [Game],
+    backgroundColor: 0x333333
+};
+
+// Instantiate Phaser
+var game = new Phaser.Game(config);
