@@ -46,6 +46,8 @@ var bgMusic;
 var baseHit;
 var pop;
 
+addAudioControlListeners();
+
 function preload() {
     this.load.audio('bg-music', 'assets/audio/bgm.ogg');
     this.load.audio('hit', 'assets/audio/hit.wav');
@@ -62,14 +64,9 @@ function create() {
     bgMusic = this.sound.add('bg-music', {
         volume: 0.25
     });
-    bgMusic.play();
     bgMusic.setLoop(true);
     this.input.keyboard.on('keydown-SPACE', function () {
-        if (bgMusic.isPlaying) {
-            bgMusic.pause();
-        } else {
-            bgMusic.resume();
-        }
+        toggleMusic();
     })
 
     //  Create sound object for basic collision sound
@@ -125,6 +122,15 @@ function create() {
     });
 }
 
+//Turn background music on and off
+function toggleMusic() {
+    if (bgMusic.isPlaying) {
+        bgMusic.pause();
+    } else {
+        bgMusic.resume();
+    }
+}
+
 function update() {
     // Moves the paddle along the x axis based on player input (mouse or touch)
     // Defaults to 400 (half of width declared in config) to center the paddle on load
@@ -148,17 +154,20 @@ function onWorldBounds() {
     }
     //Collided with a wall - add velocity on collision to stop the ball getting stuck in a continuous horizontal bounce
     else {
-        let ballXVelocity = ball.body.velocity.x;
-        let ballYVelocity = ball.body.velocity.y;
-        //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
-        if (ball.body.velocity.y >= 0) {
-            ballYVelocity += 0.1;
-        }
-        //If ball is moving upwards when it hits the wall, add a little bit more upwards velocity
-        else {
-            ballYVelocity -= 0.1;
-        }
-        ball.setVelocity(ballXVelocity, ballYVelocity);
+        //Only adjust the ball velocity if the ball has been fired
+        if(ballFired) {
+            let ballXVelocity = ball.body.velocity.x;
+            let ballYVelocity = ball.body.velocity.y;
+            //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
+            if (ball.body.velocity.y >= 0) {
+                ballYVelocity += 0.1;
+            }
+            //If ball is moving upwards when it hits the wall, add a little bit more upwards velocity
+            else {
+                ballYVelocity -= 0.1;
+            }
+            ball.setVelocity(ballXVelocity, ballYVelocity);
+        }   
     }
 }
 
@@ -265,5 +274,22 @@ function checkRemainingBricks() {
         checkHiScore()
         alert("You win!");
         location.reload();
+    }
+}
+
+//Add event listener to any audio control buttons
+function addAudioControlListeners() {
+    let musicControlButton = document.getElementById("music-toggle");
+    musicControlButton.addEventListener("change", toggleMusic);
+}
+
+//If music is set to play, turn it off. If it is off, turn it on
+function toggleMusic() {
+    let musicControlButton = document.getElementById("music-toggle");
+    if (musicControlButton.checked) {
+        bgMusic.play();
+    }
+    else {
+        bgMusic.pause();
     }
 }
