@@ -130,7 +130,7 @@ function toggleMusic() {
 }
 
 function update() {
-    
+    // Set paddle position 
     setPaddlePosition(this);
     //Stick the ball to the paddle when it's not fired
     if (!ballFired) {
@@ -153,7 +153,9 @@ function initalisePaddle(game) {
 //Set paddle position
 function setPaddlePosition(game) {
     // Moves the paddle along the x axis based on player input (mouse or touch)
-    paddle.x = game.input.x;
+    let minPaddlePos = paddle.width / 2;
+    let maxPaddlePos = game.cameras.main.width - (paddle.width / 2);
+    paddle.x = Phaser.Math.Clamp(game.input.x, minPaddlePos, maxPaddlePos);
 }
 
 // Fires whenever a world boundary event is captured by the listener above
