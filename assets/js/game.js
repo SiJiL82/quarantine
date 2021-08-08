@@ -81,28 +81,28 @@ class Game extends Phaser.Scene {
         ballFired = false
 
         //Set up audio
-        initialiseAudio(this);
+        initialiseAudio();
 
         //Set up the ball
-        initialiseBall(this);
+        initialiseBall();
 
         //Set up the paddle
-        initalisePaddle(this);
+        initalisePaddle();
 
         //Set up possible brick styles
         initialiseBrickStyles();
 
         // Create bricks
-        initialiseBricks(this);
+        initialiseBricks();
 
         //Set up score display
-        initialiseScore(this);
+        initialiseScore();
 
         //Set up alert text
-        initialiseAlertText(this);
+        initialiseAlertText();
 
         //Set up physics interactions
-        initalisePhysics(this);
+        initalisePhysics();
     }
 
     //Phaser function called each frame
@@ -181,38 +181,38 @@ class YouWin extends Phaser.Scene {
 }
 
 //Initialise Paddle
-function initalisePaddle(thisGame) {
+function initalisePaddle() {
     // Create the paddle object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader
-    paddle = thisGame.physics.add.sprite(400, 595, 'paddle');
+    paddle = currentScene.physics.add.sprite(400, 595, 'paddle');
     // Prevents paddle from being pushed away when collision with ball occurs
     paddle.setImmovable(true)
     //Set initial paddle position
-    paddle.x = thisGame.cameras.main.centerX
+    paddle.x = currentScene.cameras.main.centerX
 }
 
 //Initialise Audio
-function initialiseAudio(thisGame) {
+function initialiseAudio() {
     // Creat sound object for Background Music, and play.
-    bgMusic = thisGame.sound.add('bg-music', {
+    bgMusic = currentScene.sound.add('bg-music', {
         volume: sfxVolume
     });
     bgMusic.setLoop(true);
 
     //  Create sound object for basic collision sound
-    baseHit = thisGame.sound.add('hit', {
+    baseHit = currentScene.sound.add('hit', {
         volume: sfxVolume
     });
 
     //  Create sound object for basic collision sound
-    pop = thisGame.sound.add('pop', {
+    pop = currentScene.sound.add('pop', {
         volume: sfxVolume
     });
 }
 
 //Initialise Ball
-function initialiseBall(thisGame) {
+function initialiseBall() {
     // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader 
-    ball = thisGame.physics.add.sprite(400, 575, 'ball');
+    ball = currentScene.physics.add.sprite(400, 575, 'ball');
     // Tells ball to collide with world boundaries
     ball.setCollideWorldBounds(true);
     // Allows ball to create an event when a world boundary collision occurs
@@ -220,18 +220,18 @@ function initialiseBall(thisGame) {
     // Lets ball bounce
     ball.setBounce(1, 1);
     // Launch the ball on mouse click
-    thisGame.input.on('pointerdown', releaseBall);
+    currentScene.input.on('pointerdown', releaseBall);
 }
 
 //Initialise Score display
-function initialiseScore(thisGame) {
+function initialiseScore() {
     // Display the scores
-    scoreText = thisGame.add.text(8, 4, 'SCORE: 0', {
+    scoreText = currentScene.add.text(8, 4, 'SCORE: 0', {
         fontFamily: '"Press Start 2P"',
         fontSize: '24px',
         fill: '#fafafa'
     });
-    hiScoreText = thisGame.add.text(515, 4, 'HISCORE: ' + hiScore, {
+    hiScoreText = currentScene.add.text(515, 4, 'HISCORE: ' + hiScore, {
         fontFamily: '"Press Start 2P"',
         fontSize: '24px',
         fill: '#fafafa'
@@ -239,9 +239,9 @@ function initialiseScore(thisGame) {
 }
 
 //Initialise alert text object to be used to display in game alerts
-function initialiseAlertText(thisGame) {
-    alertText = thisGame.add.text(thisGame.cameras.main.centerX,
-        thisGame.cameras.main.centerY,
+function initialiseAlertText() {
+    alertText = currentScene.add.text(currentScene.cameras.main.centerX,
+        currentScene.cameras.main.centerY,
         "", {
             fontFamily: '"Press Start 2P"',
             fontSize: '24px',
@@ -271,27 +271,27 @@ function initialiseBrickStyles() {
 }
 
 // Configure physics
-function initalisePhysics(thisGame) {
+function initalisePhysics() {
     // Set 3 of 4 boundaries to detect collisions
-    thisGame.physics.world.setBoundsCollision(true, true, true, false);
+    currentScene.physics.world.setBoundsCollision(true, true, true, false);
 
     // Allows ball and paddle to collide
-    thisGame.physics.add.collider(ball, paddle, ballPaddleCollision);
+    currentScene.physics.add.collider(ball, paddle, ballPaddleCollision);
 
     // Listens for world boundary event, and triggers onWorldBounds
-    thisGame.physics.world.on('worldbounds', onWorldBounds);
+    currentScene.physics.world.on('worldbounds', onWorldBounds);
 
     //Add brick and ball collision
-    thisGame.physics.add.collider(ball, bricks, ballBrickCollsion);
+    currentScene.physics.add.collider(ball, bricks, ballBrickCollsion);
 }
 
 
 //Set paddle position
-function setPaddlePosition(thisGame) {
+function setPaddlePosition() {
     // Moves the paddle along the x axis based on player input (mouse or touch)
     let minPaddlePos = paddle.width / 2;
-    let maxPaddlePos = thisGame.cameras.main.width - (paddle.width / 2);
-    paddle.x = Phaser.Math.Clamp(thisGame.input.x, minPaddlePos, maxPaddlePos);
+    let maxPaddlePos = currentScene.cameras.main.width - (paddle.width / 2);
+    paddle.x = Phaser.Math.Clamp(currentScene.input.x, minPaddlePos, maxPaddlePos);
 }
 
 //Set ball position when it hasn't been fired yet
@@ -358,8 +358,8 @@ const brickLayout = {
 };
 
 //Create bricks on screen from config
-function initialiseBricks(thisGame) {
-    bricks = thisGame.physics.add.staticGroup();
+function initialiseBricks() {
+    bricks = currentScene.physics.add.staticGroup();
 
     //Loop through the number of columns and rows in the layout definition
     for (let column = 0; column < brickLayout.count.col; column++) {
@@ -426,6 +426,7 @@ function onDestroyHazard() {
 
 }
 
+//Set alert text to passed in parameter
 function setAlertText(newText){
     alertText.text = newText;
 }
