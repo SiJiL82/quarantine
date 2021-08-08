@@ -63,39 +63,30 @@ function create() {
     //Set up audio
     initialiseAudio(this);
 
-    // Set 3 of 4 boundaries to detect collisions
-    this.physics.world.setBoundsCollision(true, true, true, false);
-
     //Set up the ball
     initialiseBall(this);
 
     //Set up the paddle
     initalisePaddle(this);
 
-    // Allows ball and paddle to collide
-    this.physics.add.collider(ball, paddle, ballPaddleCollision);
-
-    // Listens for world boundary event, and triggers onWorldBounds
-    this.physics.world.on('worldbounds', onWorldBounds);
-
     // Create bricks
     initialiseBricks(this);
 
-    //Add brick and ball collision
-    this.physics.add.collider(ball, bricks, ballBrickCollsion);
-
     //Set up score display
     initialiseScore(this);
+
+    //Set up physics interactions
+    initalisePhysics(this);
 }
 
 //Phaser function called each frame
 function update() {
     // Set paddle position 
     setPaddlePosition(this);
+    
     //Stick the ball to the paddle when it's not fired
-    if (!ballFired) {
-        ball.x = paddle.x;
-    }
+    setBallPosition();
+    
     //Check if player has won the round
     checkRemainingBricks();
 }
@@ -158,6 +149,21 @@ function initialiseScore(thisGame) {
     });
 }
 
+// Configure physics
+function initalisePhysics(thisGame) {
+    // Set 3 of 4 boundaries to detect collisions
+    thisGame.physics.world.setBoundsCollision(true, true, true, false);
+
+    // Allows ball and paddle to collide
+    thisGame.physics.add.collider(ball, paddle, ballPaddleCollision);
+
+    // Listens for world boundary event, and triggers onWorldBounds
+    thisGame.physics.world.on('worldbounds', onWorldBounds);
+
+    //Add brick and ball collision
+    thisGame.physics.add.collider(ball, bricks, ballBrickCollsion);
+}
+
 
 //Set paddle position
 function setPaddlePosition(thisGame) {
@@ -165,6 +171,14 @@ function setPaddlePosition(thisGame) {
     let minPaddlePos = paddle.width / 2;
     let maxPaddlePos = thisGame.cameras.main.width - (paddle.width / 2);
     paddle.x = Phaser.Math.Clamp(thisGame.input.x, minPaddlePos, maxPaddlePos);
+}
+
+//Set ball position when it hasn't been fired yet
+function setBallPosition() {
+    //Stick the ball to the paddle
+    if (!ballFired) {
+        ball.x = paddle.x;
+    }
 }
 
 // Fires whenever a world boundary event is captured by the listener above
