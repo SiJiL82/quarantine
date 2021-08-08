@@ -136,6 +136,36 @@ class GameOver extends Phaser.Scene {
     }
 }
 
+// You win - Scene Class
+class YouWin extends Phaser.Scene {
+    constructor() {
+        super({
+            key: 'YouWin'
+        });
+    }
+
+    preload() {
+
+    }
+
+    create() {
+        // Set current scene
+        currentScene = this;
+        welcome_title = this.add.text(250, 300, 'YOU WIN!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '24px',
+            fill: '#fafafa'
+        })
+        welcome_text = this.add.text(150, 350, 'Press SPACEBAR to play again!', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '16px',
+            fill: '#fafafa'
+        })
+        this.input.keyboard.on('keydown-SPACE', function () {
+            currentScene.scene.start('Game');
+        })
+    }
+}
 
 //Initialise Paddle
 function initalisePaddle(thisGame) {
@@ -362,8 +392,7 @@ function onFirstLoad() {
 function checkRemainingBricks() {
     if (numBricks == 0) {
         checkHiScore()
-        alert("You win!");
-        location.reload();
+        currentScene.scene.start('Game')
     }
 }
 
