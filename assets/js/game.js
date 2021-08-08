@@ -66,16 +66,8 @@ function create() {
     // Set 3 of 4 boundaries to detect collisions
     this.physics.world.setBoundsCollision(true, true, true, false);
 
-    // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader 
-    ball = this.physics.add.sprite(400, 575, 'ball');
-    // Tells ball to collide with world boundaries
-    ball.setCollideWorldBounds(true);
-    // Allows ball to create an event when a world boundary collision occurs
-    ball.body.onWorldBounds = true;
-    // Lets ball bounce
-    ball.setBounce(1, 1);
-    // Launch the ball on mouse click
-    this.input.on('pointerdown', releaseBall);
+    //Set up the ball
+    initialiseBall(this);
 
     //Set up the paddle
     initalisePaddle(this);
@@ -87,7 +79,7 @@ function create() {
     this.physics.world.on('worldbounds', onWorldBounds);
 
     // Create bricks
-    bricks = createBricks();
+    initialiseBricks(this);
     //Add brick and ball collision
     this.physics.add.collider(ball, bricks, ballBrickCollsion);
 
@@ -145,6 +137,19 @@ function initialiseAudio(game)  {
     });
 }
 
+//Initialise Ball
+function initialiseBall(game) {
+    // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader 
+    ball = game.physics.add.sprite(400, 575, 'ball');
+    // Tells ball to collide with world boundaries
+    ball.setCollideWorldBounds(true);
+    // Allows ball to create an event when a world boundary collision occurs
+    ball.body.onWorldBounds = true;
+    // Lets ball bounce
+    ball.setBounce(1, 1);
+    // Launch the ball on mouse click
+    game.input.on('pointerdown', releaseBall);
+}
 
 
 //Set paddle position
@@ -212,8 +217,8 @@ const brickLayout = {
 };
 
 //Create bricks on screen from config
-function createBricks() {
-    const bricks = game.scene.scenes[0].physics.add.staticGroup();
+function initialiseBricks(game) {
+    bricks = game.physics.add.staticGroup();
     //Loop through the number of columns and rows in the layout definition
     for (let column = 0; column < brickLayout.count.col; column++) {
         for (let row = 0; row < brickLayout.count.row; row++) {
@@ -223,8 +228,6 @@ function createBricks() {
             numBricks++;
         }
     }
-
-    return bricks;
 }
 
 //Define what happens when a brick gets hit
