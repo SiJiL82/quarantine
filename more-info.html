@@ -30,21 +30,37 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light"  aria-current="page" href="index.html">Home</a>
+                        <a class="nav-link btn btn-outline-light" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-outline-light" href="how-to-play.html">How to play</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light" href="more-info.html">More info</a>
+                        <a class="nav-link btn btn-outline-light"  aria-current="page" href="more-info.html">More info</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
-    <div class="container main-div">
+    <div class="container main-div h-100">
+        <article class="container mt-5">
+            <!--
+                instructions for the game inspired by oryginal:
+                https://atariage.com/manual_html_page.php?SoftwareID=889
+            -->
+            <h1 class="mb-5">More Info</h1>
+            <h6 class="mb-5">
+                SMASH!  POW!  CRUNCH!  This game was created as an inspiration of the name "breakout". We all hear the word Quarantine and Virus all the time. We want to break out of this!
+            </h6>
+
+            <h4 class="mb-2">Inspiration</h4>
+            <p class="mb-5">This game was created for Code Institute's Hackaton "Retro Gaming". The game was inspired by Atari game Breakout. The description of the oryginal game can be found <a href="https://atariage.com/manual_html_page.php?SoftwareID=889" target="_blank" aria-label="go to page Atari Age (open in  a new window)">here</a>.</p>
+            <h4 class="mb-2">Our Team</h4>
+            <p class="mb-5">We students at Code Institute. We decided that we want to distance ourselves from the seriousness of Covid issues and have some fun. Please visit our team's <a href="https://hackathon.codeinstitute.net/teams/81/" target="_blank" aria-label="go to page hackaton teams page (open in  a new window)">page</a>.</p>
+        </article>
+
     </div>
-    <div id="game-area" class="container-fluid"></div>
+
     <footer class="footer mt-auto py-3">
         <div class="container">
             <span class="contributor-header pixel-font">Contributors <i class="fab fa-github"></i></span>
@@ -79,7 +95,7 @@
     <!-- Phaser 3 CDN -->
     <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
     <!-- Game logic js file -->
-    <script src="assets/js/game.js"></script>
+    <!--<script src="assets/js/game.js"></script> -->
 </body>
 
 </html>

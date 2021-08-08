@@ -30,10 +30,10 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light"  aria-current="page" href="index.html">Home</a>
+                        <a class="nav-link btn btn-outline-light" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light" href="how-to-play.html">How to play</a>
+                        <a class="nav-link btn btn-outline-light"  aria-current="page" href="how-to-play.html">How to play</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-outline-light" href="more-info.html">More info</a>
@@ -44,7 +44,26 @@
     </header>
     <div class="container main-div">
     </div>
-    <div id="game-area" class="container-fluid"></div>
+    <div id="how to play" class="container">
+
+        <article class="container mt-5">
+            <!--
+                instructions for the game inspired by oryginal:
+                https://atariage.com/manual_html_page.php?SoftwareID=889
+            -->
+            <h1 class="mb-5">How to Play the Game</h1>
+            <h6 class="mb-5">
+                SMASH!  POW!  CRUNCH!  A brick wall appears at the top of the screen, and
+                your missions is to smash all walls off the playfield -- one brick at
+                a time.
+            </h6>
+
+            <h4 class="mb-2">Paddle</h4>
+            <p class="mb-5">Players on pc can use mouse to control the movement of the paddle, while mobile phone users can use their finges to slide across the screen.</p>
+            <h4 class="mb-2">Start of the game</h4>
+            <p class="mb-5">Game loads with the ball attached to the paddle. If the user clicks with the mouse, the ball is released and the game starts. The mobile phone users can use the screen touch instead.</p>
+        </article>
+    </div>
     <footer class="footer mt-auto py-3">
         <div class="container">
             <span class="contributor-header pixel-font">Contributors <i class="fab fa-github"></i></span>
@@ -79,7 +98,7 @@
     <!-- Phaser 3 CDN -->
     <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
     <!-- Game logic js file -->
-    <script src="assets/js/game.js"></script>
+    <!--<script src="assets/js/game.js"></script> -->
 </body>
 
 </html>

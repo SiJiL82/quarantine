@@ -31,7 +31,8 @@
 
 # Quarantine!
 
-![Project Name](insert path to amiresponsive image here)
+Padgaming productions presents:
+ [![Quarantine](readme-files/showpiece.PNG)](https://sijil82.github.io/quarantine/index.html)
 
 View the live project [here](https://sijil82.github.io/quarantine/index.html)
 
@@ -43,6 +44,7 @@ Brief into here
 - As a user, I want to be able to know how the game works in an intuitive way
 - As a user, I want to be able to find the instructions easily
 - As a user, I want to find different levels so I can challenge myself
+- As a user, I want to have some music that would get me into the zone when gaming
 
 ## Structure
 Description of how the site is structured
@@ -51,7 +53,7 @@ Description of how the site is structured
 * Colour Scheme
     * To get that retro gaming look we used a very vibrant colour scheme combined with some neon styling:
 
-![](readme-files/palette.png)
+![palette of colors used on the website](readme-files/palette.png)
 
 * Typography
     * For this project we used two [Google Fonts](https://fonts.google.com/): [Open Sans](https://fonts.google.com/specimen/Open+Sans?query=open) as our main font, and [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P?query=Press+Start+2P), a font with a pixelated look to emphasize some headings
@@ -61,7 +63,7 @@ Description of how the site is structured
 
 ## Wireframes
 * Wireframe of Home Page (for example)
-![Wireframe of Home Page](insert path to wireframe here)
+![Wireframe of Home Page](readme-files/Wireframes.pdf)
 
 ## Features
 Brief description on different features
@@ -86,6 +88,8 @@ Brief description on different features
 * [Balsamiq](https://balsamiq.com/) was used to create the project's wireframes
 
 * [Bootstrap](https://getbootstrap.com/) was used to create the layout and provide some styling
+
+* [Bootwatch](https://bootswatch.com//) was used to change color palete provided by bootstrap
 
 * [Fontawesome](https://fontawesome.com/)
     
