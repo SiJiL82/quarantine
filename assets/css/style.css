@@ -136,7 +136,7 @@ footer .container {
 
 .contributor-socials a {
     color: var(--bs-white);
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .contributor-socials a:hover {
@@ -175,4 +175,17 @@ button {
     box-shadow: 0px 0px 10px 3px #3DD8FC, inset 0px 0px 10px 3px #3DD8FC;
     border-color: #fff;
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #3DD8FC, 0 0 40px #3DD8FC, 0 0 50px #3DD8FC, 0 0 60px #3DD8FC, 0 0 70px #3DD8FC
+}
+
+.font-neon {
+    background-color: transparent;
+    color: #FFE161;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+ 
+.font-neon:hover, .font-neon:focus {
+    text-decoration: none;
+    color: #f3d033;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FFE161, 0 0 40px #FFE161, 0 0 50px #FFE161, 0 0 60px #FFE161, 0 0 70px #FFE161
 }
