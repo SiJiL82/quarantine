@@ -46,6 +46,7 @@ var bgMusic;
 var baseHit;
 var pop;
 var sfxVolume = 0.05;
+var defaultBrick;
 var brickStyles = [];
 
 addAudioControlListeners();
@@ -161,17 +162,19 @@ function initialiseBrickStyles() {
     //Normal brick
     let normalBrick = {
         name: 'brick-normal',
-        score: 10
+        score: 10,
+        default: true
     }
-    brickStyles.push(normalBrick);
+    defaultBrick = normalBrick;
 
     //First Aid Brick (Powerup)
     let firstAidBrick = {
         name: 'brick-first-aid',
         score: 20,
-        chance: 10,
+        chance: 5,
         onDestroy: onDestroyPowerup
     }
+    brickStyles.push(firstAidBrick);
 }
 
 // Configure physics
@@ -252,7 +255,7 @@ const brickConfig = {
 //Brick layout config
 const brickLayout = {
     count: {
-        row: 2,
+        row: 3,
         col: 12
     },
     offset: {
@@ -278,16 +281,13 @@ function initialiseBricks(thisGame) {
 
     //Choose which brick to add from the array of potential bricks
     function chooseBrickToAdd() {
-        let chosen = false;
-        
         for(let brickStyle of brickStyles) {
-            if('chance' in brickStyle) {
-                //Random number to see if we pick this one
-            }
-            else {
+            let spawnChance = getRandomBetweenRange(1, 100);
+            if(spawnChance <= brickStyle.chance) {
                 return brickStyle.name;
             }
         }
+        return defaultBrick.name;
     }
 }
 
