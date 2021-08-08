@@ -153,17 +153,20 @@ function onWorldBounds() {
     }
     //Collided with a wall - add velocity on collision to stop the ball getting stuck in a continuous horizontal bounce
     else {
-        let ballXVelocity = ball.body.velocity.x;
-        let ballYVelocity = ball.body.velocity.y;
-        //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
-        if (ball.body.velocity.y >= 0) {
-            ballYVelocity += 0.1;
-        }
-        //If ball is moving upwards when it hits the wall, add a little bit more upwards velocity
-        else {
-            ballYVelocity -= 0.1;
-        }
-        ball.setVelocity(ballXVelocity, ballYVelocity);
+        //Only adjust the ball velocity if the ball has been fired
+        if(ballFired) {
+            let ballXVelocity = ball.body.velocity.x;
+            let ballYVelocity = ball.body.velocity.y;
+            //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
+            if (ball.body.velocity.y >= 0) {
+                ballYVelocity += 0.1;
+            }
+            //If ball is moving upwards when it hits the wall, add a little bit more upwards velocity
+            else {
+                ballYVelocity -= 0.1;
+            }
+            ball.setVelocity(ballXVelocity, ballYVelocity);
+        }   
     }
 }
 
