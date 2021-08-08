@@ -48,6 +48,7 @@ var pop;
 var sfxVolume = 0.05;
 var defaultBrick;
 var brickStyles = [];
+var alertText;
 
 addAudioControlListeners();
 
@@ -82,6 +83,9 @@ function create() {
 
     //Set up score display
     initialiseScore(this);
+
+    //Set up alert text
+    initialiseAlertText(this);
 
     //Set up physics interactions
     initalisePhysics(this);
@@ -157,6 +161,18 @@ function initialiseScore(thisGame) {
     });
 }
 
+//Initialise alert text object to be used to display in game alerts
+function initialiseAlertText(thisGame) {
+    alertText = thisGame.add.text(thisGame.cameras.main.centerX,
+        thisGame.cameras.main.centerY,
+        "aaaa", {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '24px',
+            fill: "yellow"
+        }
+    ).setOrigin(0.5);
+}
+
 //Initialise Brick styles
 function initialiseBrickStyles() {
     //Normal brick
@@ -170,8 +186,8 @@ function initialiseBrickStyles() {
     //First Aid Brick (Powerup)
     let firstAidBrick = {
         name: 'brick-first-aid',
-        score: 100,
-        chance: 5,
+        score: 50,
+        chance: 10,
         onDestroy: onDestroyPowerup
     }
     brickStyles.push(firstAidBrick);
@@ -298,7 +314,7 @@ function initialiseBricks(thisGame) {
 }
 
 function onDestroyPowerup() {
-
+    alertText.setText("Powerup!");
 }
 
 function onDestroyHazard() {
@@ -313,9 +329,22 @@ function ballBrickCollsion(ball, brick) {
     brick.disableBody(true, true);
     //Decrease the number of active bricks in the game
     numBricks--;
-
+    //Call bonus effect for the brick
+    brickDestroyBonus(brick);
     //Add score
     increaseScore(brick);
+}
+
+//Get the bonus function to call when the brick is destroyed
+function brickDestroyBonus(brick) {
+    for(let brickStyle of brickStyles) {
+        if(brick.name == brickStyle.name) {
+            //Check if the brick has a bonus effect
+            if("onDestroy" in brickStyle) {
+                brickStyle.onDestroy();
+            }
+        }
+    }
 }
 
 //Add score based on the properties of the destroyed brick
