@@ -130,9 +130,8 @@ function toggleMusic() {
 }
 
 function update() {
-    // Moves the paddle along the x axis based on player input (mouse or touch)
-    // Defaults to 400 (half of width declared in config) to center the paddle on load
-    paddle.x = this.input.x || 400;
+    
+    setPaddlePosition(this);
     //Stick the ball to the paddle when it's not fired
     if (!ballFired) {
         ball.x = paddle.x;
@@ -149,6 +148,12 @@ function initalisePaddle(game) {
     paddle.setImmovable(true)
     //Set initial paddle position
     paddle.x = game.cameras.main.centerX
+}
+
+//Set paddle position
+function setPaddlePosition(game) {
+    // Moves the paddle along the x axis based on player input (mouse or touch)
+    paddle.x = game.input.x;
 }
 
 // Fires whenever a world boundary event is captured by the listener above
