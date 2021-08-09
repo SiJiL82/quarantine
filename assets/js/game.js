@@ -15,6 +15,7 @@ var hiScoreText;
 var bgMusic;
 var baseHit;
 var pop;
+var gameover;
 var sfxVolume = 0.05;
 var defaultBrick;
 var brickStyles = [];
@@ -36,6 +37,7 @@ class Welcome extends Phaser.Scene {
         //Load audio assets
         this.load.audio('bg-music', 'assets/audio/bgm.ogg');
         this.load.audio('hit', 'assets/audio/hit.wav');
+        this.load.audio('gameover', 'assets/audio/gameover.wav');
         this.load.audio('pop', 'assets/audio/pop.ogg');
     }
 
@@ -233,6 +235,10 @@ function initialiseAudio() {
 
     //  Create sound object for basic collision sound
     pop = currentScene.sound.add('pop', {
+        volume: sfxVolume
+    });
+
+    gameover = currentScene.sound.add('gameover', {
         volume: sfxVolume
     });
 }
@@ -654,6 +660,7 @@ function checkLifeLost() {
 // Check if ball is below paddle
 function checkGameOver() {
     if (lives == 0) {
+        gameover.play();
         checkHiScore();
         currentScene.scene.start('GameOver')
     }
