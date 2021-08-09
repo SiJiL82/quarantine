@@ -5,7 +5,7 @@ var welcome_text;
 var ball;
 var paddle;
 var bricks;
-var numBricks = 0;
+var numBricks;
 var ballFired;
 var ballLaunchSpeed = 400;
 var score = 0;
@@ -91,6 +91,9 @@ class Game extends Phaser.Scene {
 
         // Set ballFired back to false
         ballFired = false
+
+        // Set number of bricks to 0, to prevent carry over from previous rounds
+        numBricks = 0;
 
         //Set up the paddle
         initalisePaddle();
@@ -212,7 +215,7 @@ function initalisePaddle() {
     // Prevents paddle from being pushed away when collision with ball occurs
     paddle.setImmovable(true)
     //Set initial paddle position
-    paddle.x = currentScene.cameras.main.centerX
+    paddle.x = currentScene.cameras.main.centerX;
 }
 
 //Initialise Audio
@@ -425,6 +428,10 @@ function onDestroyPowerup() {
         {
             name: "Decrease Ball Speed",
             action: decreaseBallSpeed
+        },
+        {
+            name: "Increase Paddle Width",
+            action: increasePaddleWidth
         }
     ];
 
@@ -457,12 +464,25 @@ function decreaseBallSpeed() {
     }
 }
 
+//Power up to increase paddle width
+function increasePaddleWidth() {
+    paddle.scaleX *= 1.2;
+    //Clamp the scale to stop it getting too big.
+    if(paddle.scaleX > 2) {
+        paddle.scaleX = 2;
+    }
+}
+
 function onDestroyHazard() {
     //Build an array of possible hazards
     let hazards = [
         {
             name: "Increase Ball Speed",
             action: increaseBallSpeed
+        },
+        {
+            name: "Decrease Paddle Width",
+            action: decreasePaddleWidth
         }
     ];
 
@@ -492,6 +512,15 @@ function increaseBallSpeed() {
     }
     if(ball.body.velocity.y > 800) {
         ball.body.velocity.y = 800
+    }
+}
+
+//Hazard to decrease paddle width
+function decreasePaddleWidth() {
+    paddle.scaleX *= 0.9;
+    //Clamp the scale to stop it getting too big.
+    if(paddle.scaleX < 0.5) {
+        paddle.scaleX = 0.5;
     }
 }
 
@@ -568,7 +597,7 @@ function getRandomBetweenRange(min, max) {
         console.log("Incorrect values passed to getRandomBetweenRange. Max should be > min");
         return 0;
     }
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 //Define what happens when the ball collides with the paddle
