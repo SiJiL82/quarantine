@@ -47,12 +47,15 @@ class Welcome extends Phaser.Scene {
             fontSize: '24px',
             fill: '#fafafa'
         })
-        welcome_text = this.add.text(150, 350, 'Press SPACEBAR to begin!', {
+        welcome_text = this.add.text(115, 350, 'Press SPACEBAR or TOUCH to begin!', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '24px',
+            fontSize: '16px',
             fill: '#fafafa'
         })
         this.input.keyboard.on('keydown-SPACE', function () {
+            currentScene.scene.start('Game');
+        })
+        this.input.on('pointerdown', function () {
             currentScene.scene.start('Game');
         })
 
@@ -154,12 +157,15 @@ class GameOver extends Phaser.Scene {
             fontSize: '24px',
             fill: '#fafafa'
         })
-        welcome_text = this.add.text(150, 350, 'Press SPACEBAR to play again!', {
+        welcome_text = this.add.text(110, 350, 'Press SPACEBAR or TOUCH to play again!', {
             fontFamily: '"Press Start 2P"',
             fontSize: '16px',
             fill: '#fafafa'
         })
         this.input.keyboard.on('keydown-SPACE', function () {
+            currentScene.scene.start('Game');
+        })
+        this.input.on('pointerdown', function () {
             currentScene.scene.start('Game');
         })
     }
@@ -185,12 +191,15 @@ class YouWin extends Phaser.Scene {
             fontSize: '24px',
             fill: '#fafafa'
         })
-        welcome_text = this.add.text(150, 350, 'Press SPACEBAR to play again!', {
+        welcome_text = this.add.text(110, 350, 'Press SPACEBAR or TOUCH to play again!', {
             fontFamily: '"Press Start 2P"',
             fontSize: '16px',
             fill: '#fafafa'
         })
         this.input.keyboard.on('keydown-SPACE', function () {
+            currentScene.scene.start('Game');
+        })
+        this.input.on('pointerdown', function () {
             currentScene.scene.start('Game');
         })
     }
