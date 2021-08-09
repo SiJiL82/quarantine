@@ -79,6 +79,7 @@ class Game extends Phaser.Scene {
         this.load.image('paddle', 'assets/img/paddle.png');
         this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
         this.load.image('brick-normal', 'assets/img/brick-normal.png');
+        this.load.image('brick-virus', 'assets/img/brick-virus.png');
     }
 
     create() {
@@ -87,8 +88,6 @@ class Game extends Phaser.Scene {
 
         // Set ballFired back to false
         ballFired = false
-
-        
 
         //Set up the ball
         initialiseBall();
@@ -290,6 +289,15 @@ function initialiseBrickStyles() {
         onDestroy: onDestroyPowerup
     }
     brickStyles.push(firstAidBrick);
+
+    //Virus Brick (Hazard)
+    let virusBrick = {
+        name: 'brick-virus',
+        score: -10,
+        chance: 10,
+        onDestroy: onDestroyHazard
+    }
+    brickStyles.push(virusBrick);
 }
 
 // Configure physics
