@@ -212,7 +212,7 @@ function initalisePaddle() {
     // Prevents paddle from being pushed away when collision with ball occurs
     paddle.setImmovable(true)
     //Set initial paddle position
-    paddle.x = currentScene.cameras.main.centerX
+    paddle.x = currentScene.cameras.main.centerX;
 }
 
 //Initialise Audio
@@ -296,7 +296,7 @@ function initialiseBrickStyles() {
     let firstAidBrick = {
         name: 'brick-first-aid',
         score: 50,
-        chance: 10,
+        chance: 90,
         onDestroy: onDestroyPowerup
     }
     brickStyles.push(firstAidBrick);
@@ -425,11 +425,17 @@ function onDestroyPowerup() {
         {
             name: "Decrease Ball Speed",
             action: decreaseBallSpeed
+        },
+        {
+            name: "Increase Paddle Width",
+            action: increasePaddleWidth
         }
     ];
 
     //Get a random array index
     let randomPowerup = getRandomBetweenRange(0, powerups.length - 1);
+    console.log(randomPowerup);
+    console.log(powerups[randomPowerup]);
     //Set alert text to the name of the powerup
     setAlertText(powerups[randomPowerup].name + "!");
     //Perform the powerup's action
@@ -454,6 +460,15 @@ function decreaseBallSpeed() {
     }
     if(ball.body.velocity.y < 150) {
         ball.body.velocity.y = 150
+    }
+}
+
+//Power up to increase paddle width
+function increasePaddleWidth() {
+    paddle.scaleX *= 1.2;
+    //Clamp the scale to stop it getting too big.
+    if(paddle.scaleX > 2) {
+        paddle.scaleX = 2;
     }
 }
 
@@ -568,7 +583,7 @@ function getRandomBetweenRange(min, max) {
         console.log("Incorrect values passed to getRandomBetweenRange. Max should be > min");
         return 0;
     }
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 //Define what happens when the ball collides with the paddle
