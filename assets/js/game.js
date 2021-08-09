@@ -79,6 +79,7 @@ class Game extends Phaser.Scene {
         this.load.image('paddle', 'assets/img/paddle.png');
         this.load.image('brick-first-aid', 'assets/img/brick-first-aid.png');
         this.load.image('brick-normal', 'assets/img/brick-normal.png');
+        this.load.image('brick-virus', 'assets/img/brick-virus.png');
     }
 
     create() {
@@ -87,8 +88,6 @@ class Game extends Phaser.Scene {
 
         // Set ballFired back to false
         ballFired = false
-
-        
 
         //Set up the ball
         initialiseBall();
@@ -290,6 +289,15 @@ function initialiseBrickStyles() {
         onDestroy: onDestroyPowerup
     }
     brickStyles.push(firstAidBrick);
+
+    //Virus Brick (Hazard)
+    let virusBrick = {
+        name: 'brick-virus',
+        score: -10,
+        chance: 10,
+        onDestroy: onDestroyHazard
+    }
+    brickStyles.push(virusBrick);
 }
 
 // Configure physics
@@ -429,7 +437,35 @@ function decreaseBallSpeed() {
 }
 
 function onDestroyHazard() {
+    //Build an array of possible hazards
+    let hazards = [
+        {
+            name: "Increase Ball Speed",
+            action: increaseBallSpeed
+        }
+    ];
 
+    //Get a random array index
+    let randomHazard = getRandomBetweenRange(0, hazards.length - 1);
+    //Set alert text to the name of the powerup
+    setAlertText(hazards[randomHazard].name + "!");
+    //Perform the powerup's action
+    hazards[randomHazard].action();
+    //Clear alert text after it's been set for 2s
+    //currentScene.time.delayedCall(20000, setAlertText(""), [], currentScene);
+}
+
+//Hazard to increase ball's speed
+function increaseBallSpeed() {
+    ball.body.velocity.x *= 1.4;
+    ball.body.velocity.y *= 1.4;
+    //Clamp the ball speed so it doesn't go too fast
+    if(ball.body.velocity.x > 800) {
+        ball.body.velocity.x = 800
+    }
+    if(ball.body.velocity.y > 800) {
+        ball.body.velocity.y = 800
+    }
 }
 
 //Set alert text to passed in parameter
