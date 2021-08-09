@@ -1,14 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Press+Start+2P&display=swap');
 
-body {
+#index-body {
     color: #FFF;
     font-family: 'Open Sans', sans-serif;
     height: 75vh;
     background-image: linear-gradient(#17082e 0%, #1a0933 60%, #34a2c7 100%);
     background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
 
 }
 
+.background-body {
+    color: #FFF;
+    font-family: 'Open Sans', sans-serif;
+    height: 75vh;
+    background-image: linear-gradient(#17082e 0%, #1a0933 60%, #34a2c7 100%);
+    background-attachment: fixed;
+}
 .pixel-font {
     font-family: 'Press Start 2P', cursive;
 }
