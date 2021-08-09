@@ -29,7 +29,7 @@
 
 ---
 
-# Padgaming productions presents: Quarantene!
+# Pandgaming productions presents: Quarantine!
 
 
  [![Quarantine](readme-files/showpiece.PNG)](https://sijil82.github.io/quarantine/index.html)
