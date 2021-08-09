@@ -111,6 +111,12 @@ Brief description on different features
 * [Am I Responsive](http://ami.responsivedesign.is/)
 
 ## Testing
+* HTML
+    * No errors were returned when passing through W3C HTML validator.
+    *  [W3C Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsijil82.github.io%2Fquarantine%2F)
+* CSS
+    * No errors were returned when passing through W3C CSS validator.  
+    *  [W3C Validator](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fvalidator.w3.org%2Fnu%2F%3Fdoc%3Dhttps%253A%252F%252Fsijil82.github.io%252Fquarantine%252F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)   
 
 ## Deployment
 
