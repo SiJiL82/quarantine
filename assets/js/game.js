@@ -293,7 +293,7 @@ function initialiseBrickStyles() {
     //Virus Brick (Hazard)
     let virusBrick = {
         name: 'brick-virus',
-        score: -10,
+        score: 0,
         chance: 10,
         onDestroy: onDestroyHazard
     }
