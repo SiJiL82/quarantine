@@ -89,11 +89,11 @@ class Game extends Phaser.Scene {
         // Set ballFired back to false
         ballFired = false
 
-        //Set up the ball
-        initialiseBall();
-
         //Set up the paddle
         initalisePaddle();
+
+        //Set up the ball
+        initialiseBall();
 
         //Set up possible brick styles
         initialiseBrickStyles();
@@ -229,6 +229,8 @@ function initialiseAudio() {
 function initialiseBall() {
     // Create the ball object. Applies physics, set original co-ordinates, and asigns art based on keyword as set in preloader 
     ball = currentScene.physics.add.sprite(400, 575, 'ball');
+
+    setBallPosition();
     // Tells ball to collide with world boundaries
     ball.setCollideWorldBounds(true);
     // Allows ball to create an event when a world boundary collision occurs
@@ -293,7 +295,7 @@ function initialiseBrickStyles() {
     //Virus Brick (Hazard)
     let virusBrick = {
         name: 'brick-virus',
-        score: -10,
+        score: 0,
         chance: 10,
         onDestroy: onDestroyHazard
     }
@@ -328,7 +330,11 @@ function setPaddlePosition() {
 function setBallPosition() {
     //Stick the ball to the paddle
     if (!ballFired) {
+        //Position ball horizontally in the middle of the paddle and vertically just above it
         ball.x = paddle.x;
+        ball.y = paddle.y - (paddle.height / 2) - (ball.height / 2) - 5;
+        //Stop ball moving, otherwise it tries to keep previous velocity
+        ball.body.setVelocity(0);
     }
 }
 
@@ -528,8 +534,14 @@ function increaseScore(brick) {
     updateScoreText();
 }
 
+//Update score text
 function updateScoreText() {
     scoreText.setText('SCORE: ' + score);
+}
+
+//Update Lives text
+function updateLivesText() {
+    livesText.setText('LIVES: ' + lives);
 }
 
 //Set the velocity of the ball to fire up from the paddle
@@ -595,7 +607,9 @@ function checkRemainingBricks() {
 function checkLifeLost() {
     if (ball.y > (paddle.y)) {
         lives -= 1;
-        currentScene.scene.restart();
+        ballFired = false;
+        setBallPosition();
+        updateLivesText();
     }
 }
 
