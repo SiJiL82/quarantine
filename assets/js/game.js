@@ -296,7 +296,7 @@ function initialiseBrickStyles() {
     let firstAidBrick = {
         name: 'brick-first-aid',
         score: 50,
-        chance: 90,
+        chance: 10,
         onDestroy: onDestroyPowerup
     }
     brickStyles.push(firstAidBrick);
@@ -434,8 +434,6 @@ function onDestroyPowerup() {
 
     //Get a random array index
     let randomPowerup = getRandomBetweenRange(0, powerups.length - 1);
-    console.log(randomPowerup);
-    console.log(powerups[randomPowerup]);
     //Set alert text to the name of the powerup
     setAlertText(powerups[randomPowerup].name + "!");
     //Perform the powerup's action
@@ -478,6 +476,10 @@ function onDestroyHazard() {
         {
             name: "Increase Ball Speed",
             action: increaseBallSpeed
+        },
+        {
+            name: "Decrease Paddle Width",
+            action: decreasePaddleWidth
         }
     ];
 
@@ -507,6 +509,15 @@ function increaseBallSpeed() {
     }
     if(ball.body.velocity.y > 800) {
         ball.body.velocity.y = 800
+    }
+}
+
+//Hazard to decrease paddle width
+function decreasePaddleWidth() {
+    paddle.scaleX *= 0.9;
+    //Clamp the scale to stop it getting too big.
+    if(paddle.scaleX < 0.5) {
+        paddle.scaleX = 0.5;
     }
 }
 
