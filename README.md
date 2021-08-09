@@ -36,7 +36,7 @@ Padgaming productions presents:
 
 View the live project [here](https://sijil82.github.io/quarantine/index.html)
 
-Brief into here
+Quarantine is both a fun and easy-to-play game that takes inspiration from the very well known Breakout game! The objective of the game is to break all of the blocks by hitting them with a ball that is launched from the paddle that the user will use to manaouver the direction of the ball.
 
 ## UX
 ### User Stories
@@ -64,7 +64,7 @@ Description of how the site is structured
 ## Wireframes
 * The website consists of 3 pages. Each page structure is identical. The general outline of the page was designed as per below pdf document.
 
-![Wireframe](quarantine/readme-files/wireframes.pdf)
+[Wireframe](quarantine/readme-files/wireframes.pdf)
 
 ## Features
 Brief description on different features
