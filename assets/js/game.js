@@ -420,7 +420,13 @@ function onDestroyPowerup() {
     //Perform the powerup's action
     powerups[randomPowerup].action();
     //Clear alert text after it's been set for 2s
-    //currentScene.time.delayedCall(20000, setAlertText(""), [], currentScene);
+    currentScene.time.addEvent({
+        delay: 1500,
+        callback: ()=>{
+            setAlertText("");
+        },
+        loop: false
+    })
 }
 
 //Power up to decrease ball's speed
@@ -452,7 +458,13 @@ function onDestroyHazard() {
     //Perform the powerup's action
     hazards[randomHazard].action();
     //Clear alert text after it's been set for 2s
-    //currentScene.time.delayedCall(20000, setAlertText(""), [], currentScene);
+    currentScene.time.addEvent({
+        delay: 1500,
+        callback: ()=>{
+            setAlertText("");
+        },
+        loop: false
+    })
 }
 
 //Hazard to increase ball's speed
