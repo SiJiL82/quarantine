@@ -19,6 +19,8 @@ var sfxVolume = 0.05;
 var defaultBrick;
 var brickStyles = [];
 var alertText;
+var lives = 3;
+var livesText;
 
 addAudioControlListeners();
 
@@ -115,6 +117,12 @@ class Game extends Phaser.Scene {
 
         //Check if player has won the round
         checkRemainingBricks();
+
+        // Check if player will lose a life
+        checkLifeLost();
+
+        //Check if player has lost the round
+        checkGameOver();
     }
 }
 
@@ -133,6 +141,10 @@ class GameOver extends Phaser.Scene {
     create() {
         // Set current scene
         currentScene = this;
+        // Set lives back to 3, and score back to 0
+        lives = 3
+        score = 0
+
         welcome_title = this.add.text(250, 300, 'GAME OVER!', {
             fontFamily: '"Press Start 2P"',
             fontSize: '24px',
@@ -226,7 +238,12 @@ function initialiseBall() {
 //Initialise Score display
 function initialiseScore() {
     // Display the scores
-    scoreText = currentScene.add.text(8, 4, 'SCORE: 0', {
+    scoreText = currentScene.add.text(8, 4, 'SCORE: ' + score, {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '24px',
+        fill: '#fafafa'
+    });
+    livesText = thisGame.add.text(260, 4, 'LIVES: ' + lives, {
         fontFamily: '"Press Start 2P"',
         fontSize: '24px',
         fill: '#fafafa'
@@ -305,29 +322,23 @@ function setBallPosition() {
 // Fires whenever a world boundary event is captured by the listener above
 // Checks if player has lost, i.e. if the ball's position on y axis is below the paddle's
 function onWorldBounds() {
-    //Fell out the bottom of the world
-    if (ball.y > (paddle.y)) {
-        checkHiScore();
-        currentScene.scene.start('GameOver')
-    }
     //Collided with a wall - add velocity on collision to stop the ball getting stuck in a continuous horizontal bounce
-    else {
-        //Only adjust the ball velocity if the ball has been fired
-        if (ballFired) {
-            let ballXVelocity = ball.body.velocity.x;
-            let ballYVelocity = ball.body.velocity.y;
-            //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
-            if (ball.body.velocity.y >= 0) {
-                ballYVelocity += 0.1;
-            }
-            //If ball is moving upwards when it hits the wall, add a little bit more upwards velocity
-            else {
-                ballYVelocity -= 0.1;
-            }
-            ball.setVelocity(ballXVelocity, ballYVelocity);
+    //Only adjust the ball velocity if the ball has been fired
+    if (ballFired) {
+        let ballXVelocity = ball.body.velocity.x;
+        let ballYVelocity = ball.body.velocity.y;
+        //If ball is moving down or perfectly horizontally when it hits a wall, add a little bit of downward velocity
+        if (ball.body.velocity.y >= 0) {
+            ballYVelocity += 0.1;
         }
+        //If ball is moving upwards when it hits the wall, add a little bit more upwards velocity
+        else {
+            ballYVelocity -= 0.1;
+        }
+        ball.setVelocity(ballXVelocity, ballYVelocity);
     }
 }
+
 
 //Turn background music on and off
 function toggleMusic() {
@@ -537,6 +548,22 @@ function checkRemainingBricks() {
     }
 }
 
+// Check if ball is below paddle
+function checkLifeLost() {
+    if (ball.y > (paddle.y)) {
+        lives -= 1;
+        currentScene.scene.restart();
+    }
+}
+
+// Check if ball is below paddle
+function checkGameOver() {
+    if (lives == 0) {
+        checkHiScore();
+        currentScene.scene.start('GameOver')
+    }
+}
+
 //Add event listener to any audio control buttons
 function addAudioControlListeners() {
     let musicControlButton = document.getElementById("music-toggle");
@@ -552,7 +579,6 @@ function toggleMusic() {
         bgMusic.pause();
     }
 }
-
 
 
 // Configure Phaser. 
