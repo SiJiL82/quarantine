@@ -49,7 +49,7 @@ Quarantine is both a fun and easy-to-play game that takes inspiration from the v
 
 The page is designed to reflect the styling of the old Atari games. This includes color palete and the pixalated look of the images and fonts. 
 
-The page consists of main game area and two additional pages, one with instructions and the other with more information. Each page has nav bar to enable the user to navigate easily. The footer has been designed so the user can familiarise himself with the game creators. 
+The page consists of main game area and two additional pages, one with instructions and the other with more information. Each page has nav bar to enable the user to navigate easily. The footer has been designed so the user can familiarise themselves with the game creators. 
 
 ## Design
 ### Logo
@@ -69,7 +69,7 @@ For this project we used two [Google Fonts](https://fonts.google.com/): [Open Sa
 * The paddle reflects the look of a pill
 
 
-![palette of colors used on the website](readme-files/pill-clipart-pixel-art-4.jpg)
+![paddle](assets/img/paddle.png)
 
 * the normal brick
 
@@ -185,13 +185,8 @@ To do this, follow these steps:
 6. In the terminal, type "git clone " followed by the URL you copied in step 4 and press enter.
 7. A clone of the project should have been created.
 
-## Credits
-
-### Code 
-
-
-### Content 
-
 ### Media
 
-### Acknowledgements
+Background music from [mixkit.co](https://joelsteudler.itch.io/modern-day-music-mega-pack-vol-2)
+
+Sound Effects from [mixkit.co](https://joelsteudler.itch.io/modern-day-sfx)
