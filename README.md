@@ -29,9 +29,9 @@
 
 ---
 
-# Quarantine!
+# Pandgaming productions presents: Quarantine!
 
-Padgaming productions presents:
+
  [![Quarantine](readme-files/showpiece.PNG)](https://sijil82.github.io/quarantine/index.html)
 
 View the live project [here](https://sijil82.github.io/quarantine/index.html)
@@ -43,39 +43,63 @@ Quarantine is both a fun and easy-to-play game that takes inspiration from the v
 
 - As a user, I want to be able to know how the game works in an intuitive way
 - As a user, I want to be able to find the instructions easily
-- As a user, I want to find different levels so I can challenge myself
 - As a user, I want to have some music that would get me into the zone when gaming
 
 ## Structure
-Description of how the site is structured
+
+The page is designed to reflect the styling of the old Atari games. This includes color palete and the pixalated look of the images and fonts. 
+
+The page consists of main game area and two additional pages, one with instructions and the other with more information. Each page has nav bar to enable the user to navigate easily. The footer has been designed so the user can familiarise himself with the game creators. 
 
 ## Design
-* Colour Scheme
-    * To get that retro gaming look we used a very vibrant colour scheme combined with some neon styling:
+### Logo
+The logo was designed to reflect retro gaming theme
+
+![logo - Pandgaming Productions Quarantede](readme-files/logo.jpg)
+
+### Colour Scheme
+To get that retro gaming look we used a very vibrant colour scheme combined with some neon styling:
 
 ![palette of colors used on the website](readme-files/palette.png)
 
-* Typography
-    * For this project we used two [Google Fonts](https://fonts.google.com/): [Open Sans](https://fonts.google.com/specimen/Open+Sans?query=open) as our main font, and [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P?query=Press+Start+2P), a font with a pixelated look to emphasize some headings
+### Typography
+For this project we used two [Google Fonts](https://fonts.google.com/): [Open Sans](https://fonts.google.com/specimen/Open+Sans?query=open) as our main font, and [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P?query=Press+Start+2P), a font with a pixelated look to emphasize some headings
 
-* Imagery
-    * Info on the imagery here
+### Imagery
+* The paddle reflects the look of a pill
+
+
+![palette of colors used on the website](readme-files/pill-clipart-pixel-art-4.jpg)
+
+* the normal brick
+
+![normal block](assets/img/brick-normal.png)
+
+
+* the virus brick
+
+
+
+![virus block](assets/img/brick-virus.png)
+
+* the first aid brick
+
+![first aid block](assets/img/brick-first-aid.png)
 
 ## Wireframes
-* The website consists of 3 pages. Each page structure is identical. The general outline of the page was designed as per below pdf document.
-
-[Wireframe](quarantine/readme-files/wireframes.pdf)
+* The website consists of 3 pages. Each page structure is identical. The general outline of the page was designed as per this [pdf document](quarantine/readme-files/wireframes.pdf).
 
 ## Features
-Brief description on different features
 
-#### Feature 1
-
-* Info on individual features
+### Different properties of each brick
+* the normal brick - adds + 10 points to the game score
+* the virus brick - speeds up the ball and adds 0 points to the game score
+* the first aid brick - slows down the ball and adds 50 points to the game score
 
 ## Potential Future Features
-#### Potential Future Feature 1
-* Info on possible future features
+
+* changing the size of the paddle depending which brick is hit
+* more different bricks can be added with new properties
 
 
 ## Technologies Used 
