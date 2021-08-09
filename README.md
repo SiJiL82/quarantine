@@ -111,6 +111,10 @@ Brief description on different features
 * [Am I Responsive](http://ami.responsivedesign.is/)
 
 ## Testing
+* HTML
+    * No errors were returned when passing through W3C HTML validator.
+* CSS
+    * No errors were returned when passing through W3C CSS validator.     
 
 ## Deployment
 
