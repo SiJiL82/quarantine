@@ -22,11 +22,7 @@
     * [Forking the GitHub Repository](#Forking-the-GitHub-Repository)
     * [Run Locally](#Run-Locally)
 * [Credits](#Credits)
-    * [Code](#Code)
-    * [Content](#Content)
     * [Media](#Media)
-    * [Acknowledgements](#Acknowledgements)
-
 ---
 
 # Pandgaming productions presents: Quarantine!
@@ -185,8 +181,9 @@ To do this, follow these steps:
 6. In the terminal, type "git clone " followed by the URL you copied in step 4 and press enter.
 7. A clone of the project should have been created.
 
+## Credits
 ### Media
 
-Background music from [mixkit.co](https://joelsteudler.itch.io/modern-day-music-mega-pack-vol-2)
+Background music from [Joel Steudler](https://joelsteudler.itch.io/modern-day-music-mega-pack-vol-2)
 
-Sound Effects from [mixkit.co](https://joelsteudler.itch.io/modern-day-sfx)
+Sound Effects from [Joel Steudler](https://joelsteudler.itch.io/modern-day-sfx) and [mixkit.co](https://mixkit.co/free-sound-effects/)
