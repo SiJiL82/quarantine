@@ -5,7 +5,7 @@ var welcome_text;
 var ball;
 var paddle;
 var bricks;
-var numBricks = 0;
+var numBricks;
 var ballFired;
 var ballLaunchSpeed = 400;
 var score = 0;
@@ -91,6 +91,9 @@ class Game extends Phaser.Scene {
 
         // Set ballFired back to false
         ballFired = false
+
+        // Set number of bricks to 0, to prevent carry over from previous rounds
+        numBricks = 0;
 
         //Set up the paddle
         initalisePaddle();
