@@ -17,10 +17,10 @@
     <title>Quarantine!</title>
 </head>
 
-<body>
-    <header class="container-fluid">
+<body class="d-flex flex-column min-vh-100">
+    <header>
         <!--Nav bar-->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top px-lg-5">
+        <nav class="navbar navbar-expand-lg navbar-dark px-lg-5">
             <!-- logo -->
             <a class="navbar-brand" href="index.html"><img src="assets/img/logo.jpg" alt="Quarantine logo"></a>
 
@@ -45,8 +45,8 @@
             </div>
         </nav>
     </header>
-    <div id="more-info" class="container main-div h-100 text-center">
-        <article class="container mt-5">
+    <div class="container container-fluid wrapper flex-grow-1 text-center">
+        <article id="more-info" class="container p-5 mt-5">
             <!--
                 instructions for the game inspired by oryginal:
                 https://atariage.com/manual_html_page.php?SoftwareID=889
@@ -64,7 +64,7 @@
 
     </div>
 
-    <footer class="footer mt-auto py-3 fixed-bottom">
+    <footer class="footer mt-5 py-3 ">
         <div class="container">
             <span class="contributor-header pixel-font">Contributors <i class="fab fa-github"></i></span>
             <ul class="contributor-socials">
