@@ -50,6 +50,14 @@ Quarantine is both a fun and easy-to-play game that takes inspiration from the v
 Description of how the site is structured
 
 ## Design
+
+The page is designed to reflect the styling of the old Atari games. This includes color palete and the pixalated look of the images and fonts. 
+
+
+* Logo - this was designed to reflect retro gaming theme
+
+![logo - Pandgaming Productions Quarantede](readme-files/logo.jpg)
+
 * Colour Scheme
     * To get that retro gaming look we used a very vibrant colour scheme combined with some neon styling:
 
@@ -59,12 +67,28 @@ Description of how the site is structured
     * For this project we used two [Google Fonts](https://fonts.google.com/): [Open Sans](https://fonts.google.com/specimen/Open+Sans?query=open) as our main font, and [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P?query=Press+Start+2P), a font with a pixelated look to emphasize some headings
 
 * Imagery
-    * Info on the imagery here
+    * the paddle reflects the look of a pill
+
+
+![palette of colors used on the website](readme-files/pill-clipart-pixel-art-4.jpg)
+
+* the normal brick - adds + 10 points to the game score
+
+![normal block](assets/img/brick-normal.png)
+
+
+* the virus brick - speeds up the ball and adds 0 points to the game score
+
+
+
+![virus block](assets/img/brick-virus.png)
+
+* the first aid brick - slows down the ball and adds 50 points to the game score
+
+![first aid block](assets/img/brick-first-aid.png)
 
 ## Wireframes
-* The website consists of 3 pages. Each page structure is identical. The general outline of the page was designed as per below pdf document.
-
-[Wireframe](quarantine/readme-files/wireframes.pdf)
+* The website consists of 3 pages. Each page structure is identical. The general outline of the page was designed as per this [pdf document](quarantine/readme-files/wireframes.pdf).
 
 ## Features
 Brief description on different features
@@ -72,6 +96,7 @@ Brief description on different features
 #### Feature 1
 
 * Info on individual features
+
 
 ## Potential Future Features
 #### Potential Future Feature 1
