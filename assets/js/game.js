@@ -243,7 +243,7 @@ function initialiseScore() {
         fontSize: '24px',
         fill: '#fafafa'
     });
-    livesText = thisGame.add.text(260, 4, 'LIVES: ' + lives, {
+    livesText = currentScene.add.text(260, 4, 'LIVES: ' + lives, {
         fontFamily: '"Press Start 2P"',
         fontSize: '24px',
         fill: '#fafafa'
