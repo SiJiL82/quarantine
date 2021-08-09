@@ -22,7 +22,7 @@ var alertText;
 var lives = 3;
 var livesText;
 
-addAudioControlListeners();
+
 
 // Welcome - Scene Class
 class Welcome extends Phaser.Scene {
@@ -33,7 +33,10 @@ class Welcome extends Phaser.Scene {
     }
 
     preload() {
-
+        //Load audio assets
+        this.load.audio('bg-music', 'assets/audio/bgm.ogg');
+        this.load.audio('hit', 'assets/audio/hit.wav');
+        this.load.audio('pop', 'assets/audio/pop.ogg');
     }
 
     create() {
@@ -52,6 +55,10 @@ class Welcome extends Phaser.Scene {
         this.input.keyboard.on('keydown-SPACE', function () {
             currentScene.scene.start('Game');
         })
+
+        //Set up audio
+        initialiseAudio();
+        addAudioControlListeners();
     }
 }
 
@@ -64,9 +71,8 @@ class Game extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio('bg-music', 'assets/audio/bgm.ogg');
-        this.load.audio('hit', 'assets/audio/hit.wav');
-        this.load.audio('pop', 'assets/audio/pop.ogg');
+        
+        
         onFirstLoad();
         hiScore = localStorage.getItem('hiscore');
         this.load.image('ball', 'assets/img/ball.png');
@@ -82,8 +88,7 @@ class Game extends Phaser.Scene {
         // Set ballFired back to false
         ballFired = false
 
-        //Set up audio
-        initialiseAudio();
+        
 
         //Set up the ball
         initialiseBall();
@@ -336,16 +341,6 @@ function onWorldBounds() {
             ballYVelocity -= 0.1;
         }
         ball.setVelocity(ballXVelocity, ballYVelocity);
-    }
-}
-
-
-//Turn background music on and off
-function toggleMusic() {
-    if (bgMusic.isPlaying) {
-        bgMusic.pause();
-    } else {
-        bgMusic.resume();
     }
 }
 
