@@ -244,17 +244,17 @@ function initialiseScore() {
     // Display the scores
     scoreText = currentScene.add.text(8, 4, 'SCORE: ' + score, {
         fontFamily: '"Press Start 2P"',
-        fontSize: '24px',
+        fontSize: '20px',
         fill: '#fafafa'
     });
     livesText = currentScene.add.text(260, 4, 'LIVES: ' + lives, {
         fontFamily: '"Press Start 2P"',
-        fontSize: '24px',
+        fontSize: '20px',
         fill: '#fafafa'
     });
-    hiScoreText = currentScene.add.text(515, 4, 'HISCORE: ' + hiScore, {
+    hiScoreText = currentScene.add.text(525, 4, 'HISCORE: ' + hiScore, {
         fontFamily: '"Press Start 2P"',
-        fontSize: '24px',
+        fontSize: '20px',
         fill: '#fafafa'
     });
 }
